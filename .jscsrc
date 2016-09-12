@@ -1,0 +1,8 @@
+{
+	"preset": "wordpress",
+	"fileExtensions": [ ".js" ],
+	"excludeFiles": [
+		"**/*.min.js",
+		"cherry-framework/**/*.js",
+	]
+}
