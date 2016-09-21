@@ -6,7 +6,7 @@
  * @subpackage Admin
  * @author     Cherry Team
  * @license    GPL-3.0+
- * @copyright  2002-2016, Cherry Team
+ * @copyright  2012-2016, Cherry Team
  */
 
 // If class `Cherry_Search_Admin` doesn't exists yet.
@@ -34,8 +34,11 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 */
 		public function __construct() {
 
+			// Initialization of modules.
+			add_action( 'after_setup_theme', array( $this, 'init_modules' ), 3 );
+
 			// Include libraries from the `includes/admin`
-			$this->includes();
+			add_action( 'after_setup_theme', array( $this, 'includes' ), 4 );
 
 			// Load the admin menu.
 			add_action( 'admin_menu', array( $this, 'menu' ) );
@@ -45,6 +48,9 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 
 			// Load admin JavaScripts.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+			// Set default options
+			add_action( 'admin_init', array( $this, 'set_default_settings' ) );
 		}
 
 		/**
@@ -55,10 +61,12 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 * @return void
 		 */
 		public function includes() {
+			// Include plugin settings and ajax handlers.
+			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/class-cherry-search-settings.php' );
+			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/class-cherry-search-ajax-handlers.php' );
 
 			// Include plugin pages.
-			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/pages/class-plugin-main-page.php' );
-			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/pages/class-plugin-options-page.php' );
+			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/pages/class-cherry-search-settings-page.php' );
 		}
 
 		/**
@@ -69,26 +77,70 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 * @return void
 		 */
 		public function menu() {
+			global $submenu;
+
 			add_menu_page(
 				esc_html__( 'Cherry Search', 'cherry-search' ),
 				esc_html__( 'Cherry Search', 'cherry-search' ),
 				'edit_theme_options',
 				'cherry-search',
-				array( 'Cherry_Search_Main_Page', 'get_instance' ),
 				'',
-				58
+				'dashicons-search',
+				100
 			);
 
 			add_submenu_page(
 				'cherry-search',
-				esc_html__( 'Options Example', 'cherry-search' ),
-				esc_html__( 'Options Example', 'cherry-search' ),
+				esc_html__( 'Settings', 'cherry-search' ),
+				esc_html__( 'Settings', 'cherry-search' ),
 				'edit_theme_options',
-				'cherry-search-options-page',
-				array( 'Cherry_Search_Options_Page', 'get_instance' )
+				'cherry-search-settings-page',
+				array( 'Cherry_Search_Settings_Page', 'get_instance' )
 			);
+
+			unset($submenu['cherry-search'][0]);
 		}
 
+		/**
+		* Write default settings to database.
+		*
+		* @since 1.0.0
+		* @access public
+		* @return void
+		*/
+		public function set_default_settings() {
+			$default_settungs = get_option( CHERRY_SEARCH_SLUG . '-default', false );
+
+			if ( ! $default_settungs ) {
+				$Cherry_Search_Settings = Cherry_Search_Settings::get_instance();
+				$Cherry_Search_Settings->set_default_settings();
+			}
+		}
+
+		/**
+		 * Check current plugin page.
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 * @return bool
+		 */
+		public static function is_plugin_page() {
+			$screen = get_current_screen();
+
+			return ( ! empty( $screen->base ) && false !== strpos( $screen->base, CHERRY_SEARCH_SLUG ) ) ? true : false ;
+		}
+
+		/**
+		* Run initialization of modules.
+		*
+		* @since 1.0.0
+		* @access public
+		* @return void
+		*/
+		public function init_modules() {
+			cherry_search()->get_core()->init_module( 'cherry-utility', array() );
+			cherry_search()->get_core()->init_module( 'cherry-interface-builder', array() );
+		}
 		/**
 		 * Enqueue admin stylesheets.
 		 *
@@ -98,7 +150,7 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 * @return void
 		 */
 		public function enqueue_styles( $hook ) {
-			if ( Cherry_Search_Admin::is_plugin_page() ) {
+			if ( self::is_plugin_page() ) {
 				wp_enqueue_style(
 					'cherry-search-admin',
 					esc_url( CHERRY_SEARCH_URI . 'assets/admin/css/min/cherry-search-admin.min.css' ),
@@ -117,7 +169,7 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 * @return void
 		 */
 		public function enqueue_scripts( $hook ) {
-			if ( Cherry_Search_Admin::is_plugin_page() ) {
+			if ( self::is_plugin_page() ) {
 				wp_enqueue_script(
 					'cherry-search-admin',
 					esc_url( CHERRY_SEARCH_URI . 'assets/admin/js/min/cherry-search-admin.min.js' ),
@@ -126,19 +178,6 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 					true
 				);
 			}
-		}
-
-		/**
-		 * Check current plugin page.
-		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @return bool
-		 */
-		public static function is_plugin_page() {
-			$screen = get_current_screen();
-
-			return ( ! empty( $screen->base ) && false !== strpos( $screen->base, CHERRY_SEARCH_SLUG ) ) ? true : false ;
 		}
 
 		/**
@@ -172,6 +211,6 @@ if ( ! function_exists( 'cherry_search_admin' ) ) {
 	function cherry_search_admin() {
 		return Cherry_Search_Admin::get_instance();
 	}
-}
 
-cherry_search_admin();
+	cherry_search_admin();
+}

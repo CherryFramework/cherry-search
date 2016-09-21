@@ -14,7 +14,7 @@
  * @author  Cherry Team
  * @version 1.0.0
  * @license GPL-3.0+
- * @copyright  2002-2016, Cherry Team
+ * @copyright  2012-2016, Cherry Team
  */
 
 // If this file is called directly, abort.
@@ -59,6 +59,12 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			// Set the constants needed by the plugin.
 			$this->constants();
 
+			// Internationalize the text strings used.
+			add_action( 'plugins_loaded', array( $this, 'lang' ), 1 );
+
+			// Load the admin files.
+			add_action( 'plugins_loaded', array( $this, 'admin' ), 2 );
+
 			// Load the installer core.
 			add_action( 'after_setup_theme', require( trailingslashit( __DIR__ ) . 'cherry-framework/setup.php' ), 0 );
 
@@ -71,12 +77,6 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			// Initialization of modules.
 			add_action( 'after_setup_theme', array( $this, 'init_modules' ), 3 );
 
-			// Internationalize the text strings used.
-			add_action( 'plugins_loaded', array( $this, 'lang' ), 1 );
-
-			// Load the admin files.
-			add_action( 'plugins_loaded', array( $this, 'admin' ), 2 );
-
 			// Register public assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 10 );
 
@@ -85,10 +85,6 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 
 			// Load public-facing JavaScripts.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 12 );
-
-			// Register activation and deactivation hook.
-			register_activation_hook( __FILE__, array( $this, 'activation' ) );
-			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 		}
 
 		/**
@@ -169,10 +165,16 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 					'cherry-toolkit' => array(
 						'autoload' => false,
 					),
+					'cherry-utility' => array(
+						'autoload' => false,
+					),
 					'cherry-ui-elements' => array(
 						'autoload' => false,
 					),
 					'cherry-interface-builder' => array(
+						'autoload' => false,
+					),
+					'cherry-handler' => array(
 						'autoload' => false,
 					),
 				),
@@ -189,9 +191,9 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		 * @return void
 		 */
 		public function init_modules() {
-			if ( is_admin() ) {
-				$this->get_core()->init_module( 'cherry-interface-builder', array() );
-			}
+			/*if ( is_admin() ) {
+
+			}*/
 		}
 
 		/**
@@ -203,7 +205,9 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		 */
 		public function admin() {
 			if ( is_admin() ) {
-				require_once( CHERRY_SEARCH_DIR . 'includes/admin/class-plugin-admin.php' );
+				require_once( CHERRY_SEARCH_DIR . 'includes/admin/class-cherry-search-admin.php' );
+			}else{
+				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search.php' );
 			}
 		}
 
@@ -252,24 +256,6 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		public function enqueue_scripts() {
 			wp_enqueue_script( 'cherry-search' );
 		}
-
-		/**
-		 * On plugin activation.
-		 *
-		 * @since 1.0.0
-		 * @access public
-		 * @return void
-		 */
-		public function activation() {}
-
-		/**
-		 * On plugin deactivation.
-		 *
-		 * @since 1.0.0
-		 * @access public
-		 * @return void
-		 */
-		public function deactivation() {}
 
 		/**
 		 * Returns the instance.

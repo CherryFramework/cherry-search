@@ -6,5 +6,5 @@
  * @subpackage index
  * @author     Cherry Team
  * @license    GPL-3.0+
- * @copyright  2002-2016, Cherry Team
+ * @copyright  2012-2016, Cherry Team
  */
