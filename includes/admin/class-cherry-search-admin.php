@@ -35,10 +35,10 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		public function __construct() {
 
 			// Initialization of modules.
-			add_action( 'after_setup_theme', array( $this, 'init_modules' ), 3 );
+			$this->init_modules();
 
 			// Include libraries from the `includes/admin`
-			add_action( 'after_setup_theme', array( $this, 'includes' ), 4 );
+			$this->includes();
 
 			// Load the admin menu.
 			add_action( 'admin_menu', array( $this, 'menu' ) );

@@ -219,7 +219,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'parent'                  => 'main',
 					'title'                   => esc_html__( 'Caption / Placeholder text.', 'cherry-search' ),
 					//'description'           => esc_html__( 'Description text.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'search_placeholder_text', '' ),
+					'value'                   => $this->get_setting( 'search_placeholder_text', 'Search &hellip;' ),
 					'placeholder'             => esc_html__( '', 'cherry-search' ),
 					'class'                   => '',
 					'label'                   => '',
@@ -386,7 +386,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 				'cherry-reset-buttons'  => array(
 					'type'          => 'button',
 					'parent'        => 'submite_buttons',
-					'style'         => 'danger',
 					'content'       => '<span class="text">' . esc_html__( 'Reset', 'cherry-search' ) . '</span>' . $this->spinner . $this->button_icon,
 					'view_wrapping' => false,
 					'form'          => 'chery-search-settings-form',
@@ -485,7 +484,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		public function set_default_settings() {
 			$default_settungs = $this->get_default_settings();
 
-			$this->save_setting( 'default-' . CHERRY_SEARCH_SLUG, $default_settungs );
+			$this->save_setting( CHERRY_SEARCH_SLUG . '-default' , $default_settungs );
 
 			return $default_settungs;
 		}

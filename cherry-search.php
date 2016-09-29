@@ -62,9 +62,6 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			// Internationalize the text strings used.
 			add_action( 'plugins_loaded', array( $this, 'lang' ), 1 );
 
-			// Load the admin files.
-			add_action( 'plugins_loaded', array( $this, 'admin' ), 2 );
-
 			// Load the installer core.
 			add_action( 'after_setup_theme', require( trailingslashit( __DIR__ ) . 'cherry-framework/setup.php' ), 0 );
 
@@ -76,6 +73,9 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 
 			// Initialization of modules.
 			add_action( 'after_setup_theme', array( $this, 'init_modules' ), 3 );
+
+			// Load the include files.
+			add_action( 'after_setup_theme', array( $this, 'includes' ), 4 );
 
 			// Register public assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 10 );
@@ -159,22 +159,25 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 				'base_dir' => CHERRY_SEARCH_DIR . 'cherry-framework',
 				'base_url' => CHERRY_SEARCH_URI . 'cherry-framework',
 				'modules'  => array(
-					'cherry-js-core' => array(
-						'autoload' => true,
+					'cherry-js-core'           => array(
+						'autoload'  => true,
 					),
-					'cherry-toolkit' => array(
+					'cherry-toolkit'           => array(
 						'autoload' => false,
 					),
-					'cherry-utility' => array(
+					'cherry-utility'           => array(
 						'autoload' => false,
 					),
-					'cherry-ui-elements' => array(
+					'cherry-ui-elements'       => array(
 						'autoload' => false,
 					),
 					'cherry-interface-builder' => array(
 						'autoload' => false,
 					),
-					'cherry-handler' => array(
+					'cherry-handler'           => array(
+						'autoload' => false,
+					),
+					'cherry-template-manager' => array(
 						'autoload' => false,
 					),
 				),
@@ -203,11 +206,14 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		 * @access public
 		 * @return void
 		 */
-		public function admin() {
+		public function includes() {
 			if ( is_admin() ) {
 				require_once( CHERRY_SEARCH_DIR . 'includes/admin/class-cherry-search-admin.php' );
 			}else{
-				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search.php' );
+				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-template-manager.php' );
+				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-macros-callback.php' );
+				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-form-public.php' );
+				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-form-shortcode.php' );
 			}
 		}
 
