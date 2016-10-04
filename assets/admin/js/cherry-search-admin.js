@@ -1,7 +1,7 @@
 ( function( $, CherryJsCore ) {
 	"use strict";
 
-	CherryJsCore.utilites.namespace('cherrySearchBackScripts');
+	CherryJsCore.utilites.namespace( 'cherrySearchBackScripts' );
 	CherryJsCore.cherrySearchBackScripts = {
 
 		saveHandlerId: 'cherry_search_save_setting',
@@ -13,11 +13,6 @@
 
 		saveOptionsInstance: null,
 		resetOptionsInstance: null,
-
-		cherryHadlerInit: function () {
-			$( document )
-				.on( 'CherryHandlerInit', this.init.bind( this ) );
-		},
 
 		init: function () {
 			this.saveOptionsInstance = new CherryJsCore.CherryAjaxHandler(
@@ -43,6 +38,7 @@
 		},
 
 		saveOptionsHandler: function( event ) {
+			console.log('saveOptionsHandler');
 			this.disableButton( event.target );
 			this.saveOptionsInstance.sendFormData( this.formId );
 		},
@@ -88,14 +84,14 @@
 						}
 					break;
 					default:
-						input.val( value )
+						input.val( value );
 					break;
 				}
-				input.trigger( 'change' );
 			}
 
 			this.enableButton( this.resetButtonId );
 		},
+
 		saveSuccessCallback: function( data ) {
 			this.enableButton( this.saveButtonId );
 		},
@@ -104,6 +100,7 @@
 			$( button )
 				.attr( 'disabled', 'disabled' );
 		},
+
 		enableButton: function( button ) {
 			var timer = null;
 
@@ -120,5 +117,5 @@
 			)
 		}
 	}
-	CherryJsCore.cherrySearchBackScripts.cherryHadlerInit();
+	CherryJsCore.cherrySearchBackScripts.init();
 } ( jQuery, window.CherryJsCore ) );

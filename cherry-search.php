@@ -210,7 +210,6 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			if ( is_admin() ) {
 				require_once( CHERRY_SEARCH_DIR . 'includes/admin/class-cherry-search-admin.php' );
 			}else{
-				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-template-manager.php' );
 				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-macros-callback.php' );
 				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-form-public.php' );
 				require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-form-shortcode.php' );

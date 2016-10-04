@@ -173,7 +173,7 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 				wp_enqueue_script(
 					'cherry-search-admin',
 					esc_url( CHERRY_SEARCH_URI . 'assets/admin/js/min/cherry-search-admin.min.js' ),
-					array( 'cherry-js-core' ),
+					array( 'cherry-js-core', 'cherry-handler-js' ),
 					CHERRY_SEARCH_VERSION,
 					true
 				);

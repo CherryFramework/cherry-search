@@ -36,6 +36,14 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		private $settings = null;
 
 		/**
+		 * The array contains the values that will replace the macros..
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 */
+		public $variable = array();
+
+		/**
 		 * Module сherry template мanager.
 		 *
 		 * @since 1.0.0
@@ -53,6 +61,13 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		public function __construct( $args ) {
 			$this->settings = $args;
 			$this->template_manager = Cherry_Template_Manager::get_instance();
+			$this->set_variable();
+		}
+
+		private function set_variable() {
+			$this->variable[ 'SUBMIT_TEXT' ] = $this->settings[ 'search_button_text'];
+			$this->variable[ 'PLACEHOLDER' ] = $this->settings[ 'search_placeholder_text'];
+			$this->variable[ 'READER_TEXT' ] = esc_html__( 'Search for:', 'cherry-search' );
 		}
 
 		public function get_input() {

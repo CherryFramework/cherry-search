@@ -1,8 +1,8 @@
 {
 	"preset": "wordpress",
-	"fileExtensions": [ ".js" ],
+	"fileExtensions": [ ".js"  ],
 	"excludeFiles": [
 		"**/*.min.js",
-		"cherry-framework/**/*.js",
+		"**/cherry-framework/**/*.js"
 	]
 }

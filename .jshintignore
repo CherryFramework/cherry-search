@@ -1,2 +1,5 @@
 **/*.min.js
-cherry-framework/**/*.js
+
+#Cherry Framework
+**/cherry-framework/**/*.js
+
