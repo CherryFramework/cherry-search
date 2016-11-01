@@ -61,6 +61,7 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		 * @return void
 		 */
 		public function includes() {
+
 			// Include plugin settings and ajax handlers.
 			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/class-cherry-search-settings.php' );
 			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/class-cherry-search-ajax-handlers.php' );
@@ -109,12 +110,8 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		* @return void
 		*/
 		public function set_default_settings() {
-			$default_settungs = get_option( CHERRY_SEARCH_SLUG . '-default', false );
-
-			if ( ! $default_settungs ) {
-				$Cherry_Search_Settings = Cherry_Search_Settings::get_instance();
-				$Cherry_Search_Settings->set_default_settings();
-			}
+			$Cherry_Search_Settings = Cherry_Search_Settings::get_instance();
+			$Cherry_Search_Settings -> set_default_settings();
 		}
 
 		/**

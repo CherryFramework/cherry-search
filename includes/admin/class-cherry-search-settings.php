@@ -72,6 +72,15 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		protected $settings = null;
 
 		/**
+		 * Default settings.
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 * @access protected
+		 */
+		private $settings_default = array();
+
+		/**
 		 * Submit buttons on settings page.
 		 *
 		 * @since 1.0.0
@@ -159,21 +168,27 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 
 			$this->tabs = array(
 				'main'            => array(
-					'parent'          => 'search_settings_tab',
-					'scroll'          => true,
-					'title'           => esc_html__( 'Main Settings', 'cherry-search' ),
+					'parent' => 'search_settings_tab',
+					'scroll' => true,
+					'title'  => esc_html__( 'Main Settings', 'cherry-search' ),
 				),
 				'query_settings'  => array(
-					'parent'          => 'search_settings_tab',
-					'scroll'          => true,
-					'title'           => esc_html__( 'Search Query Settings', 'cherry-search' ),
+					'parent' => 'search_settings_tab',
+					'scroll' => true,
+					'title'  => esc_html__( 'Search Query Settings', 'cherry-search' ),
 				),
 				'visual_settings' => array(
-					'parent'          => 'search_settings_tab',
-					'title'           => esc_html__( 'Visual Tuning', 'cherry-search' ),
+					'parent' => 'search_settings_tab',
+					'scroll' => true,
+					'title'  => esc_html__( 'Visual Tuning', 'cherry-search' ),
+				),
+				'notices' => array(
+					'parent' => 'search_settings_tab',
+					'scroll' => true,
+					'title'  => esc_html__( 'Notice Messages', 'cherry-search' ),
 				),
 				'submite_buttons' => array(
-					'parent'          => 'search_settings_section',
+					'parent' => 'search_settings_section',
 				),
 			);
 
@@ -182,45 +197,51 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'type'       => 'html',
 					'parent'     => 'main',
 					'class'      => 'cherry-control form-button',
-					'html'       => sprintf(
+					'html'       => '',
+					/*'html'       => sprintf(
 						esc_html__( 'If you want to add to the list tion site, you can do several sposoboma.%3$s With the aid shortcode %s, adding it to the content pages or posts. So you can do it with the aid of php code %s.%3$s Alternatively, you can enable the option "Change standard search" and the plugin will automatically replace the default WordPress search on your site.', 'cherry-search' ),
 						'<code class ="cherry-code-example">' . htmlspecialchars ( '[ ... ]' ). '</code>',
 						'<code class ="cherry-code-example">' . htmlspecialchars ( '<?php ... ?>' ). '</code>',
 						'<br/>'
-					),
+					),*/
 				),
 			);
 
 			$this->settings = array(
 //Main Settings
 				'change_standard_search'  => array(
-					'type'                    => 'switcher',
-					'parent'                  => 'main',
-					'title'                   => esc_html__( 'Change standard search.', 'cherry-search' ),
-					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'change_standard_search', true ),
-					'toggle'                  => array(
-						'true_toggle'             => 'Yes',
-						'false_toggle'            => 'No',
+					'type'          => 'switcher',
+					'parent'        => 'main',
+					'title'         => esc_html__( 'Change standard search.', 'cherry-search' ),
+					//'description' => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'change_standard_search', true ),
+					'toggle'        => array(
+						'true_toggle'  => 'Yes',
+						'false_toggle' => 'No',
 					),
 				),
 				'search_button_text'      => array(
-					'type'                    => 'text',
-					'parent'                  => 'main',
-					'title'                   => esc_html__( 'Search button text.', 'cherry-search' ),
-					//'description'           => esc_html__( 'Description text.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'search_button_text', '' ),
-					'class'                   => '',
-					'label'                   => '',
+					'type'          => 'text',
+					'parent'        => 'main',
+					'title'         => esc_html__( 'Search button text.', 'cherry-search' ),
+					//'description' => esc_html__( 'Description text.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'search_button_text', '' ),
+				),
+				'search_button_icon' => array(
+					'type'          => 'iconpicker',
+					'parent'        => 'main',
+					'title'         => esc_html__( 'Search button icon.', 'blank-plugin' ),
+					//'description' => esc_html__( 'Description icon picker.', 'blank-plugin' ),
+					'value'         => $this->get_setting( 'search_button_icon', '' ),
+					'auto_parse'    => true,
+					'icon_data'     => apply_filters( 'cherry_search_button_icon', $this->get_icons_set() ),
 				),
 				'search_placeholder_text' => array(
-					'type'                    => 'text',
-					'parent'                  => 'main',
-					'title'                   => esc_html__( 'Caption / Placeholder text.', 'cherry-search' ),
-					//'description'           => esc_html__( 'Description text.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'search_placeholder_text', esc_html__( 'Search', 'cherry-search' ) ),
-					'class'                   => '',
-					'label'                   => '',
+					'type'          => 'text',
+					'parent'        => 'main',
+					'title'         => esc_html__( 'Caption / Placeholder text.', 'cherry-search' ),
+					//'description' => esc_html__( 'Description text.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'search_placeholder_text', esc_html__( 'Search', 'cherry-search' ) ),
 				),
 //Search Query Settings
 				'search_source' => array(
@@ -230,11 +251,9 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					//'description' => esc_html__( 'Description select.', 'cherry-search' ),
 					'multiple'      => true,
 					'filter'        => true,
-					'value'         => $this->get_setting( 'search_source', array( 'post', 'page', ) ),
+					'value'         => $this->get_setting( 'search_source', array( 'post', 'page' ) ),
 					'options'       => $this->get_search_source(),
 					'placeholder'   => esc_html__( 'Selected search source.', 'cherry-search' ),
-					'label'         => '',
-					'class'         => '',
 				),
 				'exclude_source_category' => array(
 					'type'          => 'select',
@@ -246,8 +265,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'         => $this->get_setting( 'exclude_source_category', '' ),
 					'options'       => $this->utility->satellite->get_terms_array(),
 					'placeholder'   => esc_html__( 'Not selected categories.', 'cherry-search' ),
-					'label'         => '',
-					'class'         => '',
 				),
 				'exclude_source_tags' => array(
 					'type'          => 'select',
@@ -259,8 +276,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'         => $this->get_setting( 'exclude_source_tags', '' ),
 					'options'       => $this->utility->satellite->get_terms_array('post_tag'),
 					'placeholder'   => esc_html__( 'Not selected tags.', 'cherry-search' ),
-					'label'         => '',
-					'class'         => '',
 				),
 				'exclude_source_post_format' => array(
 					'type'          => 'select',
@@ -272,44 +287,16 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'         => $this->get_setting( 'exclude_source_post_format', '' ),
 					'options'       => $this->utility->satellite->get_terms_array('post_format'),
 					'placeholder'   => esc_html__( 'Not selected post formats.', 'cherry-search' ),
-					'label'         => '',
-					'class'         => '',
-				),
-				'search_source_display'  => array(
-					'type'                    => 'switcher',
-					'parent'                  => 'query_settings',
-					'title'                   => esc_html__( 'Display search source in your website.', 'cherry-search' ),
-					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'search_source_display', true ),
-					'toggle'                  => array(
-						'true_toggle'             => 'Yes',
-						'false_toggle'            => 'No',
-					),
 				),
 				'limit_query'             => array(
 					'type'                    => 'stepper',
 					'parent'                  => 'query_settings',
 					'title'                   => esc_html__( 'Limit query suggestion.', 'cherry-search' ),
 					//'description'           => esc_html__( 'Adds a number input used to define numeric values.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'limit_query', 0 ),
-					'max_value'               => 500,
+					'value'                   => $this->get_setting( 'limit_query', 5 ),
+					'max_value'               => 50,
 					'min_value'               => 0,
 					'step_value'              => 1,
-				),
-				'results_order'           => array(
-					'type'                    => 'radio',
-					'parent'                  => 'query_settings',
-					'title'                   => esc_html__( 'Search results items order', 'cherry-search' ),
-					//'description'           => esc_html__( 'Adds radio buttons group. Lets user select one option from the list.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'results_order', 'asc' ),
-					'options'                 => array(
-						'asc'   => array(
-							'label' => esc_html__( 'Asc', 'cherry-search' ),
-						),
-						'desc'  => array(
-							'label' => esc_html__( 'Desc', 'cherry-search' ),
-						),
-					),
 				),
 				'results_order_by'        => array(
 					'type'                    => 'radio',
@@ -327,28 +314,80 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 						'autohr' => array(
 							'label'  => esc_html__( 'Author', 'cherry-search' ),
 						),
+						'modified' => array(
+							'label'  => esc_html__( 'Last modified', 'cherry-search' ),
+						),
+						'comment_count' => array(
+							'label'  => esc_html__( 'Number of comments. ( From largest to smallest )', 'cherry-search' ),
+						),
+					),
+				),
+				'results_order'           => array(
+					'type'                    => 'radio',
+					'parent'                  => 'query_settings',
+					'title'                   => esc_html__( 'Search results items order', 'cherry-search' ),
+					//'description'           => esc_html__( 'Adds radio buttons group. Lets user select one option from the list.', 'cherry-search' ),
+					'value'                   => $this->get_setting( 'results_order', 'asc' ),
+					'options'                 => array(
+						'asc'   => array(
+							'label' => esc_html__( 'Asc', 'cherry-search' ),
+						),
+						'desc'  => array(
+							'label' => esc_html__( 'Desc', 'cherry-search' ),
+						),
 					),
 				),
 //Visual Tuning
-				'limit_description_word' => array(
+				'title_visible'          => array(
+					'type'                    => 'switcher',
+					'parent'                  => 'visual_settings',
+					'title'                   => esc_html__( 'title_visible.', 'cherry-search' ),
+					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
+					'value'                   => $this->get_setting( 'title_visible', true ),
+					'toggle'                  => array(
+						'true_toggle'  => esc_html__( 'Yes', 'cherry-search' ),
+						'false_toggle' => esc_html__( 'No', 'cherry-search' ),
+					),
+				),
+				'limit_content_word' => array(
 					'type'                    => 'stepper',
 					'parent'                  => 'visual_settings',
-					'title'                   => esc_html__( 'Limit search result description.', 'cherry-search' ),
+					'title'                   => esc_html__( 'Limit search result content.', 'cherry-search' ),
 					//'description'           => esc_html__( 'Adds a number input used to define numeric values.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'limit_description_word', 0 ),
-					'max_value'               => 500,
+					'value'                   => $this->get_setting( 'limit_content_word', apply_filters( 'cherry_search_limit_content_word', 50 ) ),
+					'max_value'               => 150,
 					'min_value'               => 0,
 					'step_value'              => 1,
 				),
-				'result_area_height' => array(
-					'type'                    => 'stepper',
+				'author_visible'          => array(
+					'type'                    => 'switcher',
 					'parent'                  => 'visual_settings',
-					'title'                   => esc_html__( 'Result area height.', 'cherry-search' ),
-					//'description'           => esc_html__( 'Adds a number input used to define numeric values.', 'cherry-search' ),
-					'value'                   => $this->get_setting( 'result_area_height', 0 ),
-					'max_value'               => 500,
-					'min_value'               => 0,
-					'step_value'              => 1,
+					'title'                   => esc_html__( 'author_visible.', 'cherry-search' ),
+					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
+					'value'                   => $this->get_setting( 'author_visible', true ),
+					'toggle'                  => array(
+						'true_toggle'  => esc_html__( 'Yes', 'cherry-search' ),
+						'false_toggle' => esc_html__( 'No', 'cherry-search' ),
+						'true_slave'   => 'author_prefix',
+					),
+				),
+				'author_prefix'      => array(
+					'type'          => 'text',
+					'parent'        => 'visual_settings',
+					'title'         => esc_html__( 'author_prefix.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'author_prefix', esc_html__( 'Posted by:', 'cherry-search' ) ),
+					'master'         => 'author_visible',
+				),
+				'thumbnail_visible'          => array(
+					'type'                    => 'switcher',
+					'parent'                  => 'visual_settings',
+					'title'                   => esc_html__( 'thumbnail_visible.', 'cherry-search' ),
+					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
+					'value'                   => $this->get_setting( 'thumbnail_visible', true ),
+					'toggle'                  => array(
+						'true_toggle'  => esc_html__( 'Yes', 'cherry-search' ),
+						'false_toggle' => esc_html__( 'No', 'cherry-search' ),
+					),
 				),
 				'enable_scroll'          => array(
 					'type'                    => 'switcher',
@@ -357,10 +396,44 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					//'description'           => esc_html__( 'Analogue of the regular HTML radio buttons.', 'cherry-search' ),
 					'value'                   => $this->get_setting( 'enable_scroll', true ),
 					'toggle'                  => array(
-						'true_toggle'  => 'Yes',
-						'false_toggle' => 'No',
+						'true_toggle'  => esc_html__( 'Yes', 'cherry-search' ),
+						'false_toggle' => esc_html__( 'No', 'cherry-search' ),
+						'true_slave'   => 'result_area_height',
 					),
 				),
+				'result_area_height' => array(
+					'type'                    => 'stepper',
+					'parent'                  => 'visual_settings',
+					'title'                   => esc_html__( 'Result area height.', 'cherry-search' ),
+					//'description'           => esc_html__( 'Adds a number input used to define numeric values.', 'cherry-search' ),
+					'value'                   => $this->get_setting( 'result_area_height', 500 ),
+					'max_value'               => 500,
+					'min_value'               => 0,
+					'step_value'              => 1,
+					'master'                  => 'enable_scroll',
+				),
+				'more_button'      => array(
+					'type'          => 'text',
+					'parent'        => 'visual_settings',
+					'title'         => esc_html__( 'View more text.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'more_button', esc_html__( 'View more.', 'cherry-search' ) ),
+				),
+
+//Notice Messages
+				'negative_search'      => array(
+					'type'          => 'text',
+					'parent'        => 'notices',
+					'title'         => esc_html__( 'Negative search results.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'negative_search', esc_html__( 'Sorry, but nothing matched your search terms.', 'cherry-search' ) ),
+				),
+
+				'server_error'      => array(
+					'type'          => 'text',
+					'parent'        => 'notices',
+					'title'         => esc_html__( 'Technical error.', 'cherry-search' ),
+					'value'         => $this->get_setting( 'server_error', esc_html__( 'Sorry, but we can not process your search request. Please try again later.', 'cherry-search' ) ),
+				),
+
 				/*'show_hide_effect' => array(
 					'type'          => 'select',
 					'parent'        => 'visual_settings',
@@ -387,7 +460,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'content'       => '<span class="text">' . esc_html__( 'Reset', 'cherry-search' ) . '</span>' . $this->spinner . $this->button_icon,
 					'view_wrapping' => false,
 					'form'          => 'chery-search-settings-form',
-					'formaction'    => '',
 				),
 				'cherry-save-buttons'  => array(
 					'type'          => 'button',
@@ -396,8 +468,22 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'content'       => '<span class="text">' . esc_html__( 'Save', 'cherry-search' ) . '</span>' . $this->spinner . $this->button_icon,
 					'view_wrapping' => false,
 					'form'          => 'chery-search-settings-form',
-					'formaction'    => '',
 				),
+			);
+		}
+
+		/**
+		 * Get icons set
+		 *
+		 * @since 1.0.0
+		 * @access private
+		 * @return array
+		 */
+		private function get_icons_set() {
+			return array(
+				'icon_set'    => 'cherryWidgetFontAwesome',
+				'icon_css'    => esc_url( CHERRY_SEARCH_URI . 'assets/css/min/font-awesome.min.css' ),
+				'icon_base'   => 'fa',
 			);
 		}
 
@@ -433,6 +519,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 */
 		private function get_setting( $options_id, $default_value ) {
 			$settings = get_option( CHERRY_SEARCH_SLUG, false );
+			$this->settings_default[ $options_id ] = $default_value;
 
 			if ( $settings && isset( $settings[ $options_id ] ) ) {
 				return $settings[ $options_id ];
@@ -455,36 +542,25 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		}
 
 		/**
-		 * Get default plugin settings.
-		 *
-		 * @since 1.0.0
-		 * @access private
-		 * @return array
-		 */
-		private function get_default_settings() {
-			$settings = $this->settings;
-			$default_settungs = array();
-
-			foreach ( $settings as $key => $value ) {
-				$default_settungs[ $key ] = $value['value'];
-			}
-
-			return $default_settungs;
-		}
-
-		/**
 		 * Set default plugin settings.
 		 *
-		 * @since 1.0.0
+		 * @since  1.0.0
 		 * @access public
 		 * @return array
 		 */
 		public function set_default_settings() {
-			$default_settungs = $this->get_default_settings();
+			$settings_default    = $this->settings_default;
+			$db_settings_default = get_option( CHERRY_SEARCH_SLUG . '-default', array() );
 
-			$this->save_setting( CHERRY_SEARCH_SLUG . '-default' , $default_settungs );
+			$result_array = array_diff_key( $settings_default, $db_settings_default );
+			$reverse_result_array = array_diff_key( $db_settings_default, $settings_default );
 
-			return $default_settungs;
+			if ( ! empty( $result_array ) || ! empty( $reverse_result_array ) ) {
+				$this->save_setting( CHERRY_SEARCH_SLUG . '-default' , $settings_default );
+				return $settings_default;
+			}else{
+				return $db_settings_default;
+			}
 		}
 
 		/**
@@ -495,15 +571,13 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 * @return array
 		 */
 		protected function reset_setting() {
-			$default_settungs = get_option( CHERRY_SEARCH_SLUG . '-default', false );
+			$settings_default = $this->set_default_settings();
 
-			if ( ! $default_settungs ){
-				$default_settungs = $this->set_default_settings();
+			if ( ! empty( $settings_default ) ) {
+				$this->save_setting( CHERRY_SEARCH_SLUG, $settings_default );
 			}
 
-			$this->save_setting( CHERRY_SEARCH_SLUG, $default_settungs );
-
-			return $default_settungs;
+			return $settings_default;
 		}
 
 		/**

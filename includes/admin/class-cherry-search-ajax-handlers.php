@@ -15,7 +15,7 @@ if ( ! class_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
 	/**
 	 * Cherry_Search_Ajax_Handlers class.
 	 */
-	class Cherry_Search_Ajax_Handlers extends Cherry_Search_Settings{
+	class Cherry_Search_Ajax_Handlers extends Cherry_Search_Settings {
 
 		/**
 		 * A reference to an instance of this class.
@@ -87,7 +87,9 @@ if ( ! class_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
 		 * @return void
 		 */
 		public function ajax_save_setting() {
-			$this->save_setting( CHERRY_SEARCH_SLUG, $_REQUEST['data'] );
+			if ( ! empty( $_REQUEST['data'] ) ) {
+				$this->save_setting( CHERRY_SEARCH_SLUG, $_REQUEST['data'] );
+			}
 		}
 
 		/**

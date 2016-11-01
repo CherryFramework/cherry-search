@@ -71,20 +71,11 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			// Laad the modules.
 			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ), 2 );
 
-			// Initialization of modules.
-			add_action( 'after_setup_theme', array( $this, 'init_modules' ), 3 );
-
 			// Load the include files.
-			add_action( 'after_setup_theme', array( $this, 'includes' ), 4 );
+			add_action( 'after_setup_theme', array( $this, 'includes' ), 3 );
 
 			// Register public assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 10 );
-
-			// Load public-facing StyleSheets.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 11 );
-
-			// Load public-facing JavaScripts.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 12 );
 		}
 
 		/**
@@ -180,23 +171,13 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 					'cherry-template-manager' => array(
 						'autoload' => false,
 					),
+					'cherry-dynamic-css' => array(
+						'autoload' => false,
+					),
 				),
 			) );
 
 			return $this->core;
-		}
-
-		/**
-		 * Run initialization of modules.
-		 *
-		 * @since 1.0.0
-		 * @access public
-		 * @return void
-		 */
-		public function init_modules() {
-			/*if ( is_admin() ) {
-
-			}*/
 		}
 
 		/**
@@ -207,6 +188,10 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		 * @return void
 		 */
 		public function includes() {
+
+			require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-settings-manager.php' );
+			require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-public-ajax-handlers.php' );
+
 			if ( is_admin() ) {
 				require_once( CHERRY_SEARCH_DIR . 'includes/admin/class-cherry-search-admin.php' );
 			}else{
@@ -235,31 +220,10 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		public function register_assets() {
 			// Register stylesheets.
 			wp_register_style( 'cherry-search', esc_url( CHERRY_SEARCH_URI . 'assets/css/min/cherry-search.min.css' ), array(), CHERRY_SEARCH_VERSION, 'all' );
+			wp_register_style( 'font-awesome', esc_url( CHERRY_SEARCH_URI . 'assets/css/min/font-awesome.min.css' ), array(), '4.6.3', 'all' );
 
 			// Register JavaScripts.
-			wp_register_script( 'cherry-search',esc_url( CHERRY_SEARCH_URI . 'assets/js/min/cherry-search.min.js' ), array( 'cherry-js-core' ), CHERRY_SEARCH_VERSION, true );
-		}
-
-		/**
-		 * Enqueue public-facing stylesheets.
-		 *
-		 * @since 1.0.0
-		 * @access public
-		 * @return void
-		 */
-		public function enqueue_styles() {
-			wp_enqueue_style( 'cherry-search' );
-		}
-
-		/**
-		 * Enqueue public-facing JavaScripts.
-		 *
-		 * @since 1.0.0
-		 * @access public
-		 * @return void
-		 */
-		public function enqueue_scripts() {
-			wp_enqueue_script( 'cherry-search' );
+			wp_register_script( 'cherry-search',esc_url( CHERRY_SEARCH_URI . 'assets/js/min/cherry-search.min.js' ), array( 'cherry-js-core', 'wp-util' ), CHERRY_SEARCH_VERSION, true );
 		}
 
 		/**

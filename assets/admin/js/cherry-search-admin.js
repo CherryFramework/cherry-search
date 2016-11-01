@@ -20,7 +20,7 @@
 						handlerId: this.saveHandlerId,
 						successCallback: this.saveSuccessCallback.bind( this )
 					}
-				),
+				);
 			this.resetOptionsInstance = new CherryJsCore.CherryAjaxHandler(
 					{
 						handlerId: this.resetHandlerId,
@@ -38,7 +38,6 @@
 		},
 
 		saveOptionsHandler: function( event ) {
-			console.log('saveOptionsHandler');
 			this.disableButton( event.target );
 			this.saveOptionsInstance.sendFormData( this.formId );
 		},
@@ -53,18 +52,25 @@
 				input,
 				type,
 				value,
-				valueKey;
+				valueKey,
+				iconPickerAddon,
+				baseClass;
 
 			for ( key in defaultSettings ) {
-				value = defaultSettings[ key ];
 				input = $( '[name="' + key + '"], #' + key );
+
+				if ( ! input[0] ) {
+					continue;
+				}
+
+				value = defaultSettings[ key ];
 				type = input.attr('type');
 
 				if ( undefined === type ) {
-					type = input.prop('tagName').toLowerCase();
+					type = input.prop('tagName');
 				}
 
-				switch ( type ) {
+				switch ( type.toLowerCase() ) {
 					case 'radio':
 					case 'checkbox':
 						input
@@ -74,7 +80,7 @@
 					break;
 					case 'select':
 						input
-							.find('option')
+							.find( 'option' )
 							.attr( 'selected', false );
 
 						for ( valueKey in value ) {
@@ -85,8 +91,19 @@
 					break;
 					default:
 						input.val( value );
+
+						iconPickerAddon = input.siblings('.input-group-addon');
+						if ( iconPickerAddon[0] ) {
+							baseClass = $( 'i', iconPickerAddon )[0].classList[0];
+
+							$( 'i', iconPickerAddon )
+								.removeClass()
+								.addClass( baseClass + ' '+ value );
+						};
 					break;
 				}
+
+				input.trigger( 'change' );
 			}
 
 			this.enableButton( this.resetButtonId );
