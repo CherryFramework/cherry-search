@@ -14,7 +14,7 @@ if ( ! class_exists( 'Cherry_Search_Shortcode' ) ) {
 	/**
 	 * Cherry_Search_Shortcode class.
 	 */
-	class Cherry_Search_Shortcode{
+	class Cherry_Search_Shortcode {
 
 		/**
 		 * Shortcode name.

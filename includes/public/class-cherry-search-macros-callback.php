@@ -15,7 +15,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 	/**
 	 * Cherry_Search_Macros_Callback class.
 	 */
-	class Cherry_Search_Macros_Callback extends Cherry_Search_Settings_Manager{
+	class Cherry_Search_Macros_Callback extends Cherry_Search_Settings_Manager {
 
 		/**
 		 * A reference to an instance of this class.
@@ -68,9 +68,9 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @return void
 		 */
 		private function set_variable() {
-			//Value macro $$PLACEHOLDER$$
+			// Value macro $$PLACEHOLDER$$
 			$this->variable['placeholder'] = esc_attr( $this->get_setting( 'search_placeholder_text' ) );
-			//Value macro $$READER_TEXT$$
+			// Value macro $$READER_TEXT$$
 			$this->variable['reader_text'] = apply_filters( 'cherry_search_reader_text', esc_html__( 'Search for:', 'cherry-search' ) );
 		}
 
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 			if ( $this->get_setting( 'search_button_icon' ) || $this->get_setting( 'search_button_text' ) ) {
 
 				return $this->template_manager->parser->parsed_template( 'search-form-submit', self::get_instance() );
-			}else{
+			} else {
 				return;
 			}
 		}
@@ -177,7 +177,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 */
 		public function get_thumbnail() {
 			$output = '';
-			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN ) ;
+			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN );
 
 			if ( $thumbnail_visible ) {
 				$thumbnail_html = apply_filters( 'cherry_search_thumbnail_html', '<span class="cherry-search__item-thumbnail">%s</span>' );

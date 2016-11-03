@@ -90,13 +90,13 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 			);
 
 			if ( is_wp_error( $search ) ) {
-				$response['error']   =  true;
+				$response['error']   = true;
 				$response['message'] = esc_html( $this->get_setting( 'server_error' ) );
 
 				return $response;
 			}
 
-			if( empty( $search->post_count ) ){
+			if ( empty( $search->post_count ) ) {
 				$response['message'] = esc_html( $this->get_setting( 'negative_search' ) );
 
 				return $response;
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 			$after             = '&hellip;';
 			$length            = ( int ) $this->get_setting( 'limit_content_word' );
 			$limit_query       = ( int ) $this->get_setting( 'limit_query' );
-			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN ) ;
+			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN );
 			$title_visible     = filter_var( $this->get_setting( 'title_visible' ), FILTER_VALIDATE_BOOLEAN );
 			$author_visible    = filter_var( $this->get_setting( 'author_visible' ), FILTER_VALIDATE_BOOLEAN );
 
@@ -135,8 +135,8 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 				$response['posts'][ $key ]['thumbnail'] = ( true === $thumbnail_visible ) ? $this->get_post_thumbnail( $value->ID, $value->post_title ) : '' ;
 				$response['posts'][ $key ]['author']    = ( true === $author_visible ) ? sprintf( $author_html, $author_prefix, get_author_name( $value->post_author ) ) : '' ;
 
-				if ( $key >= $limit_query-1 ) {
-					$response['posts'][ 'more_button' ] = $more_button;
+				if ( $key >= $limit_query - 1 ) {
+					$response['posts']['more_button'] = $more_button;
 					break;
 				}
 			}
@@ -145,7 +145,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 		}
 
 		/**
-		 *Return post thumbnail.
+		 * Return post thumbnail.
 		 *
 		 * @since 1.0.0
 		 * @access private
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 }
 
-if ( ! function_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
+if ( ! function_exists( 'cherry_search_public_ajax_handlers' ) ) {
 
 	/**
 	 * Returns instanse of the plugin class.
@@ -205,9 +205,9 @@ if ( ! function_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 	 * @since  1.0.0
 	 * @return object
 	 */
-	function Cherry_Search_Public_Ajax_Handlers() {
+	function cherry_search_public_ajax_handlers() {
 		return Cherry_Search_Public_Ajax_Handlers::get_instance();
 	}
 
-	Cherry_Search_Public_Ajax_Handlers();
+	cherry_search_public_ajax_handlers();
 }

@@ -97,7 +97,7 @@ if ( ! class_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return void
+		 * @return string
 		 */
 		public function ajax_reset_setting() {
 			return $this->reset_setting();
@@ -123,7 +123,7 @@ if ( ! class_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
 
 }
 
-if ( ! function_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
+if ( ! function_exists( 'cherry_search_ajax_handlers' ) ) {
 
 	/**
 	 * Returns instanse of the plugin class.
@@ -131,9 +131,9 @@ if ( ! function_exists( 'Cherry_Search_Ajax_Handlers' ) ) {
 	 * @since  1.0.0
 	 * @return object
 	 */
-	function Cherry_Search_Ajax_Handlers() {
+	function cherry_search_ajax_handlers() {
 		return Cherry_Search_Ajax_Handlers::get_instance();
 	}
 
-	Cherry_Search_Ajax_Handlers();
+	cherry_search_ajax_handlers();
 }

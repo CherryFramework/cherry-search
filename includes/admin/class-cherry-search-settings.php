@@ -201,13 +201,14 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 						'<p>%1$s</p><ol><li>%2$s</li><li>%3$s</li><li>%4$s</li></ol>',
 						esc_html__( 'In case you need to add Cherry Search on your website, you can do it in several ways:', 'cherry-search' ),
 						esc_html__( 'Enable a "Replace the standard search" option', 'cherry-search' ),
-						esc_html__( 'Add Cherry Search using this shortcode', 'cherry-search' ) . ' <code class ="cherry-code-example">' . htmlspecialchars ( '[cherry_search_form]' ) . '</code>',
-						esc_html__( 'Add PHP code to the necessaryfiles of your theme:', 'cherry-search' ) .'<code class ="cherry-code-example">' . htmlspecialchars ( '<?php cherry_get_search_form() ?>' ) . '</code>'
+						esc_html__( 'Add Cherry Search using this shortcode', 'cherry-search' ) . ' <code class ="cherry-code-example">' . htmlspecialchars( '[cherry_search_form]' ) . '</code>',
+						esc_html__( 'Add PHP code to the necessaryfiles of your theme:', 'cherry-search' ) . '<code class ="cherry-code-example">' . htmlspecialchars( '<?php cherry_get_search_form() ?>' ) . '</code>'
 					),
 				),
 			);
 
 			$this->settings = array(
+
 //Main Settings
 				'change_standard_search'  => array(
 					'type'         => 'switcher',
@@ -244,7 +245,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'       => $this->get_setting( 'search_placeholder_text', esc_html__( 'Search', 'cherry-search' ) ),
 				),
 
-//Search Query Settings
+// Search Query Settings
 				'search_source' => array(
 					'type'        => 'select',
 					'parent'      => 'query_settings',
@@ -275,7 +276,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'multiple'    => true,
 					'filter'      => true,
 					'value'       => $this->get_setting( 'exclude_source_tags', '' ),
-					'options'     => $this->utility->satellite->get_terms_array('post_tag'),
+					'options'     => $this->utility->satellite->get_terms_array( 'post_tag' ),
 					'placeholder' => esc_html__( 'Not selected tags.', 'cherry-search' ),
 				),
 				'exclude_source_post_format' => array(
@@ -286,7 +287,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'multiple'    => true,
 					'filter'      => true,
 					'value'       => $this->get_setting( 'exclude_source_post_format', '' ),
-					'options'     => $this->utility->satellite->get_terms_array('post_format'),
+					'options'     => $this->utility->satellite->get_terms_array( 'post_format' ),
 					'placeholder' => esc_html__( 'Not selected post formats.', 'cherry-search' ),
 				),
 				'limit_query'             => array(
@@ -337,7 +338,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					),
 				),
 
-//Visual Tuning
+// Visual Tuning
 				'title_visible' => array(
 					'type'   => 'switcher',
 					'parent' => 'visual_settings',
@@ -413,7 +414,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'         => $this->get_setting( 'more_button', esc_html__( 'View more.', 'cherry-search' ) ),
 				),
 
-//Notice Messages
+// Notice Messages
 				'negative_search'      => array(
 					'type'          => 'text',
 					'parent'        => 'notices',
@@ -430,7 +431,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 			);
 
 			$this->buttons = array(
-			//Submite buttons
+// Submite buttons
 				'cherry-reset-buttons'  => array(
 					'type'          => 'button',
 					'parent'        => 'submite_buttons',
@@ -477,7 +478,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 
 			if ( $sources ) {
 				foreach ( $sources as $key => $value ) {
-					if ( in_array( $key, $exude ) ){
+					if ( in_array( $key, $exude ) ) {
 						unset( $sources[ $key ] );
 					} else {
 						$sources[ $key ] = ucfirst( $value );
@@ -500,7 +501,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 
 			if ( $settings && isset( $settings[ $options_id ] ) ) {
 				return $settings[ $options_id ];
-			}else{
+			} else {
 				return $default_value;
 			}
 		}
@@ -513,7 +514,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 * @return void
 		 */
 		protected function save_setting( $key = false, $data = array() ) {
-			if ( ! empty( $data ) && is_array( $data ) && $key) {
+			if ( ! empty( $data ) && is_array( $data ) && $key ) {
 				update_option( $key, $data );
 			}
 		}
@@ -535,7 +536,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 			if ( ! empty( $result_array ) || ! empty( $reverse_result_array ) ) {
 				$this->save_setting( CHERRY_SEARCH_SLUG . '-default' , $settings_default );
 				return $settings_default;
-			}else{
+			} else {
 				return $db_settings_default;
 			}
 		}

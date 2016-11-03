@@ -15,7 +15,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 	/**
 	 * Cherry_Search_Form_Public class.
 	 */
-	class Cherry_Search_Form_Public extends Cherry_Search_Settings_Manager{
+	class Cherry_Search_Form_Public extends Cherry_Search_Settings_Manager {
 
 		/**
 		 * A reference to an instance of this class.
@@ -71,6 +71,13 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 			}
 		}
 
+		/**
+		 * Trigger function set_query_settings.
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 * @return void
+		 */
 		public function set_search_query( $query ) {
 			if ( ! is_admin() && $query->is_search ) {
 				$this->set_query_settings();
@@ -83,10 +90,10 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return void
+		 * @return string
 		 */
 		public function build_search_form( $search_form = null ) {
-			if ( $this->template_manager === null ) {
+			if ( null === $this->template_manager ) {
 				$this->template_manager = Cherry_Template_Manager::get_instance();
 			}
 
@@ -112,7 +119,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		public function set_css_style() {
 			$enable_scroll = filter_var( $this->get_setting( 'enable_scroll' ), FILTER_VALIDATE_BOOLEAN );
 
-			if( $enable_scroll ){
+			if ( $enable_scroll ) {
 				$dynamic_css = cherry_search()->get_core()->init_module( 'cherry-dynamic-css', array() );
 				$max_height = $this->get_setting( 'result_area_height' );
 
@@ -126,10 +133,11 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 			}
 		}
 
-
 		/**
-		 * Get JS template to print
+		 * Get JS template to print.
 		 *
+		 * @since 1.0.0
+		 * @access public
 		 * @return string
 		 */
 		public function print_js_template() {

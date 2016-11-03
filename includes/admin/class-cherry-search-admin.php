@@ -99,19 +99,19 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 				array( 'Cherry_Search_Settings_Page', 'get_instance' )
 			);
 
-			unset($submenu['cherry-search'][0]);
+			unset( $submenu['cherry-search'][0] );
 		}
 
 		/**
-		* Write default settings to database.
-		*
-		* @since 1.0.0
-		* @access public
-		* @return void
-		*/
+		 * Write default settings to database.
+		 *
+		 * @since 1.0.0
+		 * @access public
+		 * @return void
+		 */
 		public function set_default_settings() {
-			$Cherry_Search_Settings = Cherry_Search_Settings::get_instance();
-			$Cherry_Search_Settings -> set_default_settings();
+			$cherry_search_settings = Cherry_Search_Settings::get_instance();
+			$cherry_search_settings -> set_default_settings();
 		}
 
 		/**
@@ -128,12 +128,12 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 		}
 
 		/**
-		* Run initialization of modules.
-		*
-		* @since 1.0.0
-		* @access public
-		* @return void
-		*/
+		 * Run initialization of modules.
+		 *
+		 * @since 1.0.0
+		 * @access public
+		 * @return void
+		 */
 		public function init_modules() {
 			cherry_search()->get_core()->init_module( 'cherry-utility', array() );
 			cherry_search()->get_core()->init_module( 'cherry-interface-builder', array() );

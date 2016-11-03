@@ -15,7 +15,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 	/**
 	 * Cherry_Search_Settings_Manager class.
 	 */
-	class Cherry_Search_Settings_Manager{
+	class Cherry_Search_Settings_Manager {
 
 		/**
 		 * Plugin settings.
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return array
+		 * @return void
 		 */
 		public function get_settings() {
 			$this->settings         = get_option( CHERRY_SEARCH_SLUG, false );
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 				$this->get_settings();
 			}
 
-			if ( array_key_exists($id, $this->settings) ) {
+			if ( array_key_exists( $id, $this->settings ) ) {
 				return $this->settings[ $id ];
 			} else {
 				return;
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 		 * @return void
 		 */
 		protected function set_query_settings() {
-			$search_source= $this->get_setting( 'search_source' );
+			$search_source = $this->get_setting( 'search_source' );
 
 			$this->search_query['cache_results']    = true;
 			$this->search_query['post_type']        = ! $search_source ? 'any' : $search_source ;
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 						'operator' => 'NOT IN',
 						'terms'    => $this->get_setting( 'exclude_source_tags' ),
 					),
-				)
+				),
 			);
 		}
 	}

@@ -15,7 +15,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Page' ) ) {
 	/**
 	 * Cherry_Search_Settings_Page class.
 	 */
-	class Cherry_Search_Settings_Page extends Cherry_Search_Settings{
+	class Cherry_Search_Settings_Page extends Cherry_Search_Settings {
 
 		/**
 		 * A reference to an instance of this class.

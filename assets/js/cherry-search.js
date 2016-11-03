@@ -1,7 +1,7 @@
-( function( $ ){
+(function( $, CherryJsCore ) {
 	"use strict"
 
-	CherryJsCore.utilites.namespace('cherrySearch');
+	CherryJsCore.utilites.namespace( 'cherrySearch' );
 	CherryJsCore.cherrySearch = {
 		settings: {
 			searchFormWrapperClass: '.cherry-search',
@@ -16,7 +16,7 @@
 			searchHandlerId: 'cherry_search_public_action'
 		},
 
-		init: function () {
+		init: function() {
 			$( 'body' ).on( 'focus' + this.settings.searchFormWrapperClass, this.settings.inputClass, this.initCherrySearch.bind( this ) );
 		},
 
@@ -25,25 +25,25 @@
 
 			search.cherrySearch( this.settings );
 		}
-	}
+	};
+
 	CherryJsCore.cherrySearch.init();
 
 	$.fn.cherrySearch = function( args ) {
 		var self = this[0];
 
 		if ( ! self.isInit ) {
-			self.isInit       = true;
-
 			var settings      = args,
 				messages      = cherrySearchMessages,
 				timer         = null,
 				itemTemplate  = wp.template( 'search-form-results-item' ),
 				resultsList   = $( settings.listClass, self ),
-				messageHolder = $( settings.messageHolder, resultsList),
-				spinner = $( settings.spinner, resultsList);
+				messageHolder = $( settings.messageHolder, resultsList ),
+				spinner       = $( settings.spinner, resultsList );
 
+			self.isInit       = true;
 
-			self.inputChangeHandler = function( event ){
+			self.inputChangeHandler = function( event ) {
 				var value = event.target.value;
 
 				$( 'ul', resultsList ).html( '' );
@@ -51,7 +51,7 @@
 
 				if ( value ) {
 					self.showList();
-					spinner.addClass('show');
+					spinner.addClass( 'show' );
 
 					clearTimeout( timer );
 					timer = setTimeout( function() {
@@ -62,7 +62,7 @@
 				}
 			};
 
-			self.successCallback = function( response ){
+			self.successCallback = function( response ) {
 				if ( 'error-notice' !== response.type ) {
 					var date       = response.data,
 						error      = date.error,
@@ -74,8 +74,8 @@
 
 					if ( 0 === date.post_count || error ) {
 						self.outputMessage( message, 'show' );
-					}else{
-						messageHolder.removeClass('show');
+					} else {
+						messageHolder.removeClass( 'show' );
 						for ( post in posts ) {
 							if ( 'more_button' === post ) {
 								outputHtml += posts[ post ];
@@ -85,37 +85,34 @@
 						}
 					}
 
-					spinner.removeClass('show');
+					spinner.removeClass( 'show' );
 					$( 'ul', resultsList ).html( outputHtml );
-				} else{
+				} else {
 					self.outputMessage( messages.serverError, 'error show' );
 				}
 			};
 
-			self.errorCallback = function( data ){
+			self.errorCallback = function( data ) {
 				spinner.removeClass('show');
 				self.outputMessage( messages.serverError, 'error show' );
 			};
 
-			self.hideList = function(){
+			self.hideList = function() {
 				resultsList.removeClass( 'show' );
 			}
 
-			self.showList = function(){
+			self.showList = function() {
 				resultsList.addClass( 'show' );
 			}
 
-			self.focusHandler = function(){
+			self.focusHandler = function() {
 				if ( 0 !== $( 'ul > li', resultsList ).length ) {
 					self.showList();
 				}
 			}
 
 			self.outputMessage = function( message, messageClass ) {
-				messageHolder
-					.removeClass('error show')
-					.addClass( messageClass )
-					.html( message );
+				messageHolder.removeClass( 'error show' ).addClass( messageClass ).html( message );
 			}
 
 			self.formClick = function( event ) {
@@ -151,4 +148,4 @@
 			return 'is init: true';
 		};
 	}
-}( jQuery ) )
+}( jQuery, window.CherryJsCore ) )
