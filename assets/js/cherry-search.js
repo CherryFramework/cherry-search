@@ -1,5 +1,5 @@
 (function( $, CherryJsCore ) {
-	"use strict"
+	'use strict';
 
 	CherryJsCore.utilites.namespace( 'cherrySearch' );
 	CherryJsCore.cherrySearch = {
@@ -30,17 +30,16 @@
 	CherryJsCore.cherrySearch.init();
 
 	$.fn.cherrySearch = function( args ) {
-		var self = this[0];
+		var self = this[0],
+			settings      = args,
+			messages      = cherrySearchMessages,
+			timer         = null,
+			itemTemplate  = wp.template( 'search-form-results-item' ),
+			resultsList   = $( settings.listClass, self ),
+			messageHolder = $( settings.messageHolder, resultsList ),
+			spinner       = $( settings.spinner, resultsList );
 
 		if ( ! self.isInit ) {
-			var settings      = args,
-				messages      = cherrySearchMessages,
-				timer         = null,
-				itemTemplate  = wp.template( 'search-form-results-item' ),
-				resultsList   = $( settings.listClass, self ),
-				messageHolder = $( settings.messageHolder, resultsList ),
-				spinner       = $( settings.spinner, resultsList );
-
 			self.isInit       = true;
 
 			self.inputChangeHandler = function( event ) {
@@ -63,15 +62,15 @@
 			};
 
 			self.successCallback = function( response ) {
-				if ( 'error-notice' !== response.type ) {
-					var date       = response.data,
-						error      = date.error,
-						message    = date.message,
-						posts      = date.posts,
-						post       = null,
-						outputHtml = '',
-						postData   = null;
+				var date       = response.data,
+					error      = date.error,
+					message    = date.message,
+					posts      = date.posts,
+					post       = null,
+					outputHtml = '',
+					postData   = null;
 
+				if ( 'error-notice' !== response.type ) {
 					if ( 0 === date.post_count || error ) {
 						self.outputMessage( message, 'show' );
 					} else {
@@ -93,35 +92,35 @@
 			};
 
 			self.errorCallback = function( data ) {
-				spinner.removeClass('show');
+				spinner.removeClass( 'show' );
 				self.outputMessage( messages.serverError, 'error show' );
 			};
 
 			self.hideList = function() {
 				resultsList.removeClass( 'show' );
-			}
+			};
 
 			self.showList = function() {
 				resultsList.addClass( 'show' );
-			}
+			};
 
 			self.focusHandler = function() {
 				if ( 0 !== $( 'ul > li', resultsList ).length ) {
 					self.showList();
 				}
-			}
+			};
 
 			self.outputMessage = function( message, messageClass ) {
 				messageHolder.removeClass( 'error show' ).addClass( messageClass ).html( message );
-			}
+			};
 
 			self.formClick = function( event ) {
 				event.stopPropagation();
-			}
+			};
 
 			self.clickMoreButton = function( event ) {
 				$( settings.searchFormClass, self ).submit();
-			}
+			};
 
 			self.searchAjaxInstancer = new CherryJsCore.CherryAjaxHandler(
 				{
@@ -130,7 +129,6 @@
 					errorCallback: self.errorCallback
 				}
 			);
-
 
 
 			$( settings.inputClass, self )
@@ -147,5 +145,5 @@
 		} else {
 			return 'is init: true';
 		};
-	}
-}( jQuery, window.CherryJsCore ) )
+	};
+}( jQuery, window.CherryJsCore ) );

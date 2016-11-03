@@ -138,7 +138,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return string
+		 * @return void
 		 */
 		public function print_js_template() {
 			$template_names = array(

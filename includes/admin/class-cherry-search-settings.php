@@ -209,7 +209,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 
 			$this->settings = array(
 
-//Main Settings
+// Main Settings
 				'change_standard_search'  => array(
 					'type'         => 'switcher',
 					'parent'       => 'main',

@@ -1,5 +1,5 @@
 ( function( $, CherryJsCore ) {
-	"use strict";
+	'use strict';
 
 	CherryJsCore.utilites.namespace( 'cherrySearchBackScripts' );
 	CherryJsCore.cherrySearchBackScripts = {
@@ -14,7 +14,7 @@
 		saveOptionsInstance: null,
 		resetOptionsInstance: null,
 
-		init: function () {
+		init: function() {
 			this.saveOptionsInstance = new CherryJsCore.CherryAjaxHandler(
 					{
 						handlerId: this.saveHandlerId,
@@ -31,7 +31,7 @@
 			this.addEvents();
 		},
 
-		addEvents: function () {
+		addEvents: function() {
 			$( 'body' )
 				.on( 'click', this.saveButtonId, this.saveOptionsHandler.bind( this ) )
 				.on( 'click', this.resetButtonId, this.resetOptionsHandler.bind( this ) );
@@ -64,10 +64,10 @@
 				}
 
 				value = defaultSettings[ key ];
-				type = input.attr('type');
+				type = input.attr( 'type' );
 
 				if ( undefined === type ) {
-					type = input.prop('tagName');
+					type = input.prop( 'tagName' );
 				}
 
 				switch ( type.toLowerCase() ) {
@@ -92,13 +92,13 @@
 					default:
 						input.val( value );
 
-						iconPickerAddon = input.siblings('.input-group-addon');
+						iconPickerAddon = input.siblings( '.input-group-addon' );
 						if ( iconPickerAddon[0] ) {
 							baseClass = $( 'i', iconPickerAddon )[0].classList[0];
 
 							$( 'i', iconPickerAddon )
 								.removeClass()
-								.addClass( baseClass + ' '+ value );
+								.addClass( baseClass + ' ' + value );
 						};
 					break;
 				}
@@ -131,8 +131,9 @@
 					clearTimeout( timer );
 				},
 				1000
-			)
+			);
 		}
-	}
+	};
+
 	CherryJsCore.cherrySearchBackScripts.init();
-} ( jQuery, window.CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) );
