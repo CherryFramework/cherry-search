@@ -231,8 +231,8 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 				'search_button_icon' => array(
 					'type'        => 'iconpicker',
 					'parent'      => 'main',
-					'title'       => esc_html__( 'Search Button Icon.', 'blank-plugin' ),
-					'description' => esc_html__( 'This option sets search button text.', 'blank-plugin' ),
+					'title'       => esc_html__( 'Search Button Icon.', 'cherry-search' ),
+					'description' => esc_html__( 'This option sets search button text.', 'cherry-search' ),
 					'value'       => $this->get_setting( 'search_button_icon', '' ),
 					'auto_parse'  => true,
 					'icon_data'   => apply_filters( 'cherry_search_button_icon', $this->get_icons_set() ),

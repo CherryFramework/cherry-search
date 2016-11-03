@@ -1,0 +1,326 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cherry-search\n"
+"POT-Creation-Date: 2016-11-03 16:49+0200\n"
+"PO-Revision-Date: 2016-11-03 16:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: CherryTeam\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_n_noop:1,2;_x:1,2c;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/admin/class-cherry-search-admin.php:84
+#: includes/admin/class-cherry-search-admin.php:85
+msgid "Cherry Search"
+msgstr ""
+
+#: includes/admin/class-cherry-search-admin.php:95
+#: includes/admin/class-cherry-search-admin.php:96
+msgid "Settings"
+msgstr "Настройки"
+
+#: includes/admin/class-cherry-search-ajax-handlers.php:57
+#: includes/admin/class-cherry-search-ajax-handlers.php:73
+msgid "Unable to process the request without nonche or server error"
+msgstr "Ошабка сервера. =("
+
+#: includes/admin/class-cherry-search-ajax-handlers.php:58
+#: includes/admin/class-cherry-search-ajax-handlers.php:74
+msgid "No right for this action"
+msgstr "Не найден обработчик."
+
+#: includes/admin/class-cherry-search-ajax-handlers.php:59
+#: includes/admin/class-cherry-search-ajax-handlers.php:75
+msgid "Stop CHEATING!!!"
+msgstr "Перестань это делать!!!!"
+
+#: includes/admin/class-cherry-search-ajax-handlers.php:60
+msgid "Options save successfully."
+msgstr "Опции сохранены."
+
+#: includes/admin/class-cherry-search-ajax-handlers.php:76
+msgid "Options reset successfully"
+msgstr "Опции по умолчанию установлены."
+
+#: includes/admin/class-cherry-search-settings.php:158
+msgid "Cherry Search Settings"
+msgstr "Cherry Search настройки."
+
+#: includes/admin/class-cherry-search-settings.php:173
+msgid "Main settings"
+msgstr "Основные настройки."
+
+#: includes/admin/class-cherry-search-settings.php:178
+msgid "Search results settings"
+msgstr "Настройка поискового запроса."
+
+#: includes/admin/class-cherry-search-settings.php:183
+msgid "Visual settings"
+msgstr "Визуальные настройки."
+
+#: includes/admin/class-cherry-search-settings.php:188
+msgid "Notifications"
+msgstr "Уведомления."
+
+#: includes/admin/class-cherry-search-settings.php:202
+msgid ""
+"In case you need to add Cherry Search on your website, you can do it in "
+"several ways:"
+msgstr ""
+"Если вы хотите добавить Cherry Search на свой веб сайт, вы можете сделать "
+"это несколькими способами:"
+
+#: includes/admin/class-cherry-search-settings.php:203
+msgid "Enable a \"Replace the standard search\" option"
+msgstr "Включить опцию \"Заменить стандартную форму поиска\"."
+
+#: includes/admin/class-cherry-search-settings.php:204
+msgid "Add Cherry Search using this shortcode"
+msgstr "Добавить форму поиска с помощью шорткода."
+
+#: includes/admin/class-cherry-search-settings.php:205
+msgid "Add PHP code to the necessaryfiles of your theme:"
+msgstr "Добавить PHP код в необходимые файлы вашей тему."
+
+#: includes/admin/class-cherry-search-settings.php:216
+msgid "Replace the standard search form."
+msgstr "Заменить стандартную форму поиска."
+
+#: includes/admin/class-cherry-search-settings.php:217
+msgid ""
+"This option allows to replace all the standard search forms on your website."
+msgstr ""
+"Опция позволяет заменить все стандартные формы поиска на вашем веб сайте."
+
+#: includes/admin/class-cherry-search-settings.php:220
+#: includes/admin/class-cherry-search-settings.php:348
+#: includes/admin/class-cherry-search-settings.php:367
+#: includes/admin/class-cherry-search-settings.php:385
+#: includes/admin/class-cherry-search-settings.php:395
+msgid "Yes"
+msgstr "Вкл"
+
+#: includes/admin/class-cherry-search-settings.php:221
+#: includes/admin/class-cherry-search-settings.php:349
+#: includes/admin/class-cherry-search-settings.php:368
+#: includes/admin/class-cherry-search-settings.php:386
+#: includes/admin/class-cherry-search-settings.php:396
+msgid "No"
+msgstr "Выкл"
+
+#: includes/admin/class-cherry-search-settings.php:227
+msgid "Search Button Text."
+msgstr "Текст кнопки."
+
+#: includes/admin/class-cherry-search-settings.php:228
+#: includes/admin/class-cherry-search-settings.php:235
+msgid "This option sets search button text."
+msgstr "Опция устанавливает текст для кнопки поиска в форме."
+
+#: includes/admin/class-cherry-search-settings.php:234
+msgid "Search Button Icon."
+msgstr "Иконка кнопки."
+
+#: includes/admin/class-cherry-search-settings.php:243
+msgid "Caption / Placeholder text."
+msgstr "Подсказка."
+
+#: includes/admin/class-cherry-search-settings.php:244
+msgid "This option sets placeholder text in input field."
+msgstr "Опция устанавливает иконку для кнопки поиска в форме."
+
+#: includes/admin/class-cherry-search-settings.php:245
+msgid "Search"
+msgstr "Искать"
+
+#: includes/admin/class-cherry-search-settings.php:252
+msgid "Search in."
+msgstr "Искать в:"
+
+#: includes/admin/class-cherry-search-settings.php:253
+msgid ""
+"You can select particular search areas. If nothing is selected in the "
+"option, search will be made over the entire site."
+msgstr ""
+"Вы можете выбрать определенные области поиска. Если в опции ничего не "
+"выбрано, то поиск будет осуществляться по всему сайту."
+
+#: includes/admin/class-cherry-search-settings.php:258
+msgid "Selected search source."
+msgstr "Ничего не выбрано."
+
+#: includes/admin/class-cherry-search-settings.php:263
+msgid "Exclude categories from search results."
+msgstr "Исключить категории из поиска:"
+
+#: includes/admin/class-cherry-search-settings.php:264
+msgid "This option allows to set categories in which search will not be made."
+msgstr ""
+"Опция позволяет указать категории, в которых не будет осуществляться поиск."
+
+#: includes/admin/class-cherry-search-settings.php:269
+msgid "Not selected categories."
+msgstr "Ничего не выбрано."
+
+#: includes/admin/class-cherry-search-settings.php:274
+msgid "Exclude tags from search results."
+msgstr "Исключить теги из поиска:"
+
+#: includes/admin/class-cherry-search-settings.php:275
+msgid "This option allows to set tags in which search will not be made."
+msgstr "Опция позволяет указать теги, в которых не будет осуществляться поиск."
+
+#: includes/admin/class-cherry-search-settings.php:280
+msgid "Not selected tags."
+msgstr "Ничего не выбрано."
+
+#: includes/admin/class-cherry-search-settings.php:285
+msgid "Exclude post types from search results."
+msgstr "Исключить форматы статей из поиска:"
+
+#: includes/admin/class-cherry-search-settings.php:286
+msgid "This option allows to post types in which search will not be made."
+msgstr ""
+"Опция позволяет указать форматы статей, в которых не будет осуществляться "
+"поиск."
+
+#: includes/admin/class-cherry-search-settings.php:291
+msgid "Not selected post formats."
+msgstr "Ничего не выбрано."
+
+#: includes/admin/class-cherry-search-settings.php:296
+msgid "Number of results displayed in one search query."
+msgstr "Количество выводимых элементов в поисковом запросе."
+
+#: includes/admin/class-cherry-search-settings.php:297
+msgid ""
+"This option will allow you to limit the number of displayed search results. "
+"If the overall number of results will exceeed the previously set limit, the "
+"\"load more\" button will come up.."
+msgstr ""
+"Опция позволяет ограничить количество выводимых элементов. Если общий "
+"результат поиска будет больше, чем указано в опции, то выводится кнопка "
+"\"показать ещё\"."
+
+#: includes/admin/class-cherry-search-settings.php:306
+msgid "Sort search results by:"
+msgstr "Сортировать результат поиска по:"
+
+#: includes/admin/class-cherry-search-settings.php:310
+msgid "Date"
+msgstr "Датe создания."
+
+#: includes/admin/class-cherry-search-settings.php:313
+msgid "Title"
+msgstr "Заголовокам."
+
+#: includes/admin/class-cherry-search-settings.php:316
+msgid "Author"
+msgstr "Авторам постов."
+
+#: includes/admin/class-cherry-search-settings.php:319
+msgid "Last modified"
+msgstr "Последним изменениям."
+
+#: includes/admin/class-cherry-search-settings.php:322
+msgid "Number of Comments (descending)"
+msgstr "Количеству комментариев. ( по убыванию )"
+
+#: includes/admin/class-cherry-search-settings.php:329
+msgid "Filter results by: "
+msgstr "Порядок сортировки:"
+
+#: includes/admin/class-cherry-search-settings.php:333
+msgid "Asc"
+msgstr "По возрастанию."
+
+#: includes/admin/class-cherry-search-settings.php:336
+msgid "Desc"
+msgstr "По убыванию."
+
+#: includes/admin/class-cherry-search-settings.php:345
+msgid "Show post titles."
+msgstr "Отображать заголовки статей."
+
+#: includes/admin/class-cherry-search-settings.php:355
+msgid "Post word count."
+msgstr "Количество вводимых слов из контента статей."
+
+#: includes/admin/class-cherry-search-settings.php:364
+msgid "Show post authors."
+msgstr "Отображать авторов статей."
+
+#: includes/admin/class-cherry-search-settings.php:375
+msgid "Prefix before author`s name."
+msgstr "Приставка перед именем автора."
+
+#: includes/admin/class-cherry-search-settings.php:376
+msgid "Posted by:"
+msgstr "Сообщение от:"
+
+#: includes/admin/class-cherry-search-settings.php:382
+msgid "Show post thumbnails."
+msgstr "Отображать миниатюры статей."
+
+#: includes/admin/class-cherry-search-settings.php:392
+msgid "Enable scrolling for dropdown lists."
+msgstr "Включить полосу прокрутки в выпадающем списке."
+
+#: includes/admin/class-cherry-search-settings.php:403
+msgid "Dropdown list height."
+msgstr "Высота выпадающего списка."
+
+#: includes/admin/class-cherry-search-settings.php:413
+msgid "\"View more\" button text."
+msgstr "Добавить текст для кнопки \"показать ещё\"."
+
+#: includes/admin/class-cherry-search-settings.php:414
+msgid "View more."
+msgstr "Показать ещё"
+
+#: includes/admin/class-cherry-search-settings.php:421
+msgid "Negative search results."
+msgstr "Уведомление отрицательные результаты поиска."
+
+#: includes/admin/class-cherry-search-settings.php:422
+msgid "Sorry, but nothing matched your search terms."
+msgstr "Извините, но ничего не найдено по вашему запросу."
+
+#: includes/admin/class-cherry-search-settings.php:428
+msgid "Technical error."
+msgstr "Уведомление при ошибке. "
+
+#: includes/admin/class-cherry-search-settings.php:429
+msgid ""
+"Sorry, but we cannot handle your search query now. Please, try again later!"
+msgstr ""
+"Извините, но мы не можем обработать ваш запрос. Пожалуйста, повторите "
+"попытку позже."
+
+#: includes/admin/class-cherry-search-settings.php:438
+msgid "Reset"
+msgstr "Сбрость настройки"
+
+#: includes/admin/class-cherry-search-settings.php:446
+msgid "Save"
+msgstr "Сохранить настройки"
+
+#: includes/public/class-cherry-search-macros-callback.php:74
+msgid "Search for:"
+msgstr "Искать:"
+
+#~ msgid "Main Settings"
+#~ msgstr "Основные настройки."
+
+#~ msgid "Search Query Settings"
+#~ msgstr "Настройка поискового запроса."

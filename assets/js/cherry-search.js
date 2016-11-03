@@ -140,6 +140,6 @@
 
 		} else {
 			return 'is init: true';
-		};
+		}
 	};
-}( jQuery, window.CherryJsCore ) )
+}( jQuery, window.CherryJsCore ) );
