@@ -32,7 +32,7 @@
 	$.fn.cherrySearch = function( args ) {
 		var self = this[0],
 			settings      = args,
-			messages      = cherrySearchMessages,
+			messages      = window.cherrySearchMessages,
 			timer         = null,
 			itemTemplate  = wp.template( 'search-form-results-item' ),
 			resultsList   = $( settings.listClass, self ),
@@ -67,8 +67,7 @@
 					message    = date.message,
 					posts      = date.posts,
 					post       = null,
-					outputHtml = '',
-					postData   = null;
+					outputHtml = '';
 
 				if ( 'error-notice' !== response.type ) {
 					if ( 0 === date.post_count || error ) {
@@ -91,7 +90,7 @@
 				}
 			};
 
-			self.errorCallback = function( data ) {
+			self.errorCallback = function() {
 				spinner.removeClass( 'show' );
 				self.outputMessage( messages.serverError, 'error show' );
 			};
@@ -118,7 +117,7 @@
 				event.stopPropagation();
 			};
 
-			self.clickMoreButton = function( event ) {
+			self.clickMoreButton = function() {
 				$( settings.searchFormClass, self ).submit();
 			};
 
@@ -143,4 +142,4 @@
 			return 'is init: true';
 		};
 	};
-}( jQuery, window.CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) )

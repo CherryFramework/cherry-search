@@ -99,7 +99,7 @@
 							$( 'i', iconPickerAddon )
 								.removeClass()
 								.addClass( baseClass + ' ' + value );
-						};
+						}
 					break;
 				}
 
@@ -109,7 +109,7 @@
 			this.enableButton( this.resetButtonId );
 		},
 
-		saveSuccessCallback: function( data ) {
+		saveSuccessCallback: function() {
 			this.enableButton( this.saveButtonId );
 		},
 
