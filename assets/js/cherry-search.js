@@ -122,14 +122,11 @@
 				$( settings.searchFormClass, self ).submit();
 			};
 
-			self.searchAjaxInstancer = new CherryJsCore.CherryAjaxHandler(
-				{
-					handlerId: settings.searchHandlerId,
-					successCallback: self.successCallback,
-					errorCallback: self.errorCallback
-				}
-			);
-
+			self.searchAjaxInstancer = new CherryJsCore.CherryAjaxHandler( {
+				handlerId: settings.searchHandlerId,
+				successCallback: self.successCallback,
+				errorCallback: self.errorCallback
+			} );
 
 			$( settings.inputClass, self )
 				.on( 'input', self.inputChangeHandler )
