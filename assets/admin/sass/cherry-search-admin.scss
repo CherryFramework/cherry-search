@@ -1,8 +1,6 @@
 #main-page-content {
 	font-style: italic;
-
 	padding: 30px;
-
 	color: #96989A;
 }
 .search_settings_section {
@@ -10,7 +8,10 @@
 	.cherry-section__title {
 		margin-top: 0;
 	}
-
+	.info-block{
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
 	.submite_buttons {
 		padding-bottom: 20px;
 
@@ -114,6 +115,7 @@
 				flex: 0 1 85%;
 				.cherry-scroll {
 					max-height: 478px;
+					overflow-y: auto;
 				}
 			}
 		}

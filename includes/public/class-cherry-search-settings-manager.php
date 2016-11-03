@@ -84,8 +84,10 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 		 * @return void
 		 */
 		protected function set_query_settings() {
+			$search_source= $this->get_setting( 'search_source' );
+
 			$this->search_query['cache_results']    = true;
-			$this->search_query['post_type']        = $this->get_setting( 'search_source' );
+			$this->search_query['post_type']        = ! $search_source ? 'any' : $search_source ;
 			$this->search_query['order']            = $this->get_setting( 'results_order' );
 			$this->search_query['orderby']          = $this->get_setting( 'results_order_by' );
 			$this->search_query['tax_query']        = array(

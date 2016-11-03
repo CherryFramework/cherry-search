@@ -12,6 +12,7 @@
 			itemClass: '.cherry-search__results-item',
 			messageHolder: '.cherry-search__message',
 			spinner: '.cherry-search__spinner',
+			moreButton: '.cherry-search__more-button',
 			searchHandlerId: 'cherry_search_public_action'
 		},
 
@@ -62,33 +63,36 @@
 			};
 
 			self.successCallback = function( response ){
-				var date       = response.data,
-					error      = date.error,
-					message    = date.message,
-					posts      = date.posts,
-					post       = null,
-					outputHtml = '',
-					postData   = null;
+				if ( 'error-notice' !== response.type ) {
+					var date       = response.data,
+						error      = date.error,
+						message    = date.message,
+						posts      = date.posts,
+						post       = null,
+						outputHtml = '',
+						postData   = null;
 
-				if ( 0 === date.post_count || error ) {
-					self.outputMessage( message, 'show' );
-				}else{
-					messageHolder.removeClass('show');
-					for ( post in posts ) {
-						if ( 'more_button' === post ) {
-							outputHtml += posts[ post ];
-						} else {
-							outputHtml += itemTemplate( posts[ post ] );
+					if ( 0 === date.post_count || error ) {
+						self.outputMessage( message, 'show' );
+					}else{
+						messageHolder.removeClass('show');
+						for ( post in posts ) {
+							if ( 'more_button' === post ) {
+								outputHtml += posts[ post ];
+							} else {
+								outputHtml += itemTemplate( posts[ post ] );
+							}
 						}
 					}
-				}
 
-				spinner.removeClass('show');
-				$( 'ul', resultsList ).html( outputHtml );
+					spinner.removeClass('show');
+					$( 'ul', resultsList ).html( outputHtml );
+				} else{
+					self.outputMessage( messages.serverError, 'error show' );
+				}
 			};
 
 			self.errorCallback = function( data ){
-				console.log(self.searchAjaxInstancer);
 				spinner.removeClass('show');
 				self.outputMessage( messages.serverError, 'error show' );
 			};
@@ -107,15 +111,19 @@
 				}
 			}
 
-			self.outputMessage = function( message, messageClass ){
+			self.outputMessage = function( message, messageClass ) {
 				messageHolder
 					.removeClass('error show')
 					.addClass( messageClass )
 					.html( message );
 			}
 
-			self.formClick = function( event ){
+			self.formClick = function( event ) {
 				event.stopPropagation();
+			}
+
+			self.clickMoreButton = function( event ) {
+				$( settings.searchFormClass, self ).submit();
 			}
 
 			self.searchAjaxInstancer = new CherryJsCore.CherryAjaxHandler(
@@ -126,12 +134,15 @@
 				}
 			);
 
+
+
 			$( settings.inputClass, self )
 				.on( 'input', self.inputChangeHandler )
 				.on( 'focus', self.focusHandler );
 
 			$( self )
-				.on( 'click' + settings.searchFormWrapperClass, self.formClick );
+				.on( 'click' + settings.searchFormWrapperClass, self.formClick )
+				.on( 'click' + settings.searchFormWrapperClass, settings.moreButton, self.clickMoreButton );
 
 			$( 'body' )
 				.on( 'click' + settings.searchFormWrapperClass, self.hideList );

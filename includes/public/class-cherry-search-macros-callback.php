@@ -69,7 +69,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 */
 		private function set_variable() {
 			//Value macro $$PLACEHOLDER$$
-			$this->variable['placeholder'] = $this->get_setting( 'search_placeholder_text' );
+			$this->variable['placeholder'] = esc_attr( $this->get_setting( 'search_placeholder_text' ) );
 			//Value macro $$READER_TEXT$$
 			$this->variable['reader_text'] = apply_filters( 'cherry_search_reader_text', esc_html__( 'Search for:', 'cherry-search' ) );
 		}
@@ -82,9 +82,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @return string
 		 */
 		public function get_input() {
-			$output = $this->template_manager->loader->get_template_by_name( 'search-form-input' );
-
-			return $output;
+			return $this->template_manager->loader->get_template_by_name( 'search-form-input' );
 		}
 
 		/**
@@ -121,7 +119,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 					$class = $prefix[0] . ' ' . $class;
 				}
 
-				return sprintf( apply_filters( 'cherry_search_icon', '<span class="cherry-search__icon %s"></span>' ), $class );
+				return sprintf( apply_filters( 'cherry_search_icon', '<span class="cherry-search__icon %s"></span>' ), esc_attr( $class ) );
 			} else {
 				return;
 			}
@@ -139,7 +137,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 
 			if ( $text ) {
 
-				return sprintf( apply_filters( 'cherry_search_submite_text', '<span class="screen-reader-text">%s</span>' ), $text );
+				return sprintf( apply_filters( 'cherry_search_submite_text', '<span class="cherry-search__submite_text">%s</span>' ), esc_html( $text ) );
 			} else {
 				return;
 			}

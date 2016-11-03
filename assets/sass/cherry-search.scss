@@ -3,8 +3,6 @@ $backgrount-color: #fff;
 
 .cherry-search{
 	position: relative;
-	z-index: 1;
-
 	form.cherry-search__form {
 		display: flex;
 		margin-bottom: 0;
@@ -30,6 +28,7 @@ $backgrount-color: #fff;
 	}
 	&__field.search-field[ type="search" ]{
 		width: 100%;
+		box-sizing: border-box;
 	}
 	&__results-list{
 		display: none;
@@ -38,11 +37,15 @@ $backgrount-color: #fff;
 		border: 1px solid $border-color;
 		border-top:none;
 		background-color: $backgrount-color;
+		z-index: 9999;
 		&.show{
 			display: block;
 		}
 		ul{
-			//margin: 0 0 2px 0;
+			margin: 0 0 0 0;
+			li{
+				margin: 0 0 0 0;
+			}
 		}
 		&::-webkit-scrollbar {
 			width: 8px;
@@ -75,6 +78,8 @@ $backgrount-color: #fff;
 		border-top: 1px solid $border-color;
 		background-color: $backgrount-color;
 		transition: all 0.4s ease-in-out;
+		margin: 0;
+		text-align: left;
 		&:hover{
 			background-color: #f6f6f6;
 		};
@@ -84,7 +89,7 @@ $backgrount-color: #fff;
 		a{
 			text-decoration: none;
 			border: none;
-			padding: 0 5px 0 5px;
+			padding: 5px;
 			display: flex;
 			box-shadow: none;
 		}
@@ -103,7 +108,7 @@ $backgrount-color: #fff;
 	}
 	&__item-thumbnail{
 		flex: 0 1 15%;
-		margin: 5px 10px 0 0 ;
+		margin: 0px 10px 0 0 ;
 		min-width: 15%;
 		img{
 			width: 100%;
@@ -117,7 +122,9 @@ $backgrount-color: #fff;
 	&__item-title, &__item-content, &__item-author{
 		display: block;
 		width: 100%;
-		margin: 5px 0 0 0 ;
+	}
+	&__item-content, &__item-author{
+		margin: 5px 0 0 0;
 	}
 	&__item-author{
 		font-size: 12px;

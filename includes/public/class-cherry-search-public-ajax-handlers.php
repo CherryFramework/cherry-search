@@ -91,13 +91,13 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 			if ( is_wp_error( $search ) ) {
 				$response['error']   =  true;
-				$response['message'] = $this->get_setting( 'server_error' );
+				$response['message'] = esc_html( $this->get_setting( 'server_error' ) );
 
 				return $response;
 			}
 
 			if( empty( $search->post_count ) ){
-				$response['message'] = $this->get_setting( 'negative_search' );
+				$response['message'] = esc_html( $this->get_setting( 'negative_search' ) );
 
 				return $response;
 			}
@@ -109,11 +109,11 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 			$title_visible     = filter_var( $this->get_setting( 'title_visible' ), FILTER_VALIDATE_BOOLEAN );
 			$author_visible    = filter_var( $this->get_setting( 'author_visible' ), FILTER_VALIDATE_BOOLEAN );
 
-			$author_prefix     = $this->get_setting( 'author_prefix' );
+			$author_prefix     = esc_html( $this->get_setting( 'author_prefix' ) );
 			$author_html       = apply_filters( 'cherry_search_author_html', '<span>%1$s </span> <em>%2$s</em>' );
 
 			$more_button_html  = apply_filters( 'cherry_search_more_button_html', '<li class="cherry-search__more-button">%s</li>' );
-			$more_button_text  = $this->get_setting( 'more_button' );
+			$more_button_text  = esc_html( $this->get_setting( 'more_button' ) );
 			$more_button       = sprintf( $more_button_html, $more_button_text );
 
 			$response['posts']      = array();
@@ -131,7 +131,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 				$response['posts'][ $key ]['content']   = $content;
 				$response['posts'][ $key ]['title']     = ( true === $title_visible ) ? $value->post_title : '' ;
-				$response['posts'][ $key ]['link']      = get_post_permalink( $value->ID );
+				$response['posts'][ $key ]['link']      = esc_url( get_post_permalink( $value->ID ) );
 				$response['posts'][ $key ]['thumbnail'] = ( true === $thumbnail_visible ) ? $this->get_post_thumbnail( $value->ID, $value->post_title ) : '' ;
 				$response['posts'][ $key ]['author']    = ( true === $author_visible ) ? sprintf( $author_html, $author_prefix, get_author_name( $value->post_author ) ) : '' ;
 

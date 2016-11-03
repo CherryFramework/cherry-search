@@ -45,6 +45,15 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		private $messages = array();
 
 		/**
+		 * Search button icon.
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 * @var    object
+		 */
+		private $search_button_icon = false;
+
+		/**
 		 * Class constructor.
 		 *
 		 * @since  1.0.0
@@ -52,17 +61,18 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			add_filter( 'pre_get_posts', array( $this, 'set_search_query' ) );
+			add_action( 'pre_get_posts', array( $this, 'set_search_query' ) );
 
-			$change_standard_search = filter_var( $this->get_setting( 'change_standard_search' ), FILTER_VALIDATE_BOOLEAN );
+			$change_standard_search   = filter_var( $this->get_setting( 'change_standard_search' ), FILTER_VALIDATE_BOOLEAN );
+			$this->search_button_icon = $this->get_setting( 'search_button_icon' );
 
 			if ( $change_standard_search ) {
-				add_filter( 'get_search_form', array( $this, 'build_search_form' ) );
+				add_filter( 'get_search_form', array( $this, 'build_search_form' ), 0 );
 			}
 		}
 
 		public function set_search_query( $query ) {
-			if ( $query->is_search ) {
+			if ( ! is_admin() && $query->is_search ) {
 				$this->set_query_settings();
 				$query->query_vars = array_merge( $query->query_vars, $this->search_query );
 			}
@@ -80,12 +90,12 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 				$this->template_manager = Cherry_Template_Manager::get_instance();
 			}
 
-			$this->messages['serverError'] = $this->get_setting( 'server_error' );
+			$this->messages['serverError'] = esc_html( $this->get_setting( 'server_error' ) );
 
 			// Load public-facing StyleSheets.
 			$this->enqueue_styles();
 
-			add_action( 'get_search_form', array( $this, 'set_css_style' ), 0 );
+			add_action( 'get_footer', array( $this, 'set_css_style' ) );
 			add_action( 'wp_print_footer_scripts', array( $this, 'enqueue_scripts' ), 0 );
 			add_action( 'wp_print_footer_scripts', array( $this, 'print_js_template' ), 0 );
 
@@ -148,7 +158,9 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @return void
 		 */
 		private function enqueue_styles() {
-			wp_enqueue_style( 'font-awesome' );
+			if ( $this->search_button_icon ) {
+				wp_enqueue_style( 'font-awesome' );
+			}
 			wp_enqueue_style( 'cherry-search' );
 		}
 
