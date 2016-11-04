@@ -33,11 +33,14 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @var array
 		 */
 		public $variable = array(
-			'thumbnail' => '{{{data.thumbnail}}}',
-			'title'     => '{{{data.title}}}',
-			'content'   => '{{{data.content}}}',
-			'author'    => '{{{data.author}}}',
-			'link'      => '{{{data.link}}}',
+			'thumbnail'   => '{{{data.thumbnail}}}',
+			'title'       => '{{{data.title}}}',
+			'content'     => '{{{data.content}}}',
+			'author'      => '{{{data.author}}}',
+			'link'        => '{{{data.link}}}',
+			'placeholder' => '',
+			'reader_text' => '',
+			'action'      => '',
 		);
 
 		/**
@@ -68,6 +71,8 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @return void
 		 */
 		private function set_variable() {
+			// Value macro $$ACTION$$
+			$this->variable['action']      = get_home_url();
 			// Value macro $$PLACEHOLDER$$
 			$this->variable['placeholder'] = esc_attr( $this->get_setting( 'search_placeholder_text' ) );
 			// Value macro $$READER_TEXT$$
