@@ -90,9 +90,11 @@
 				}
 			};
 
-			self.errorCallback = function() {
-				spinner.removeClass( 'show' );
-				self.outputMessage( messages.serverError, 'error show' );
+			self.errorCallback = function( jqXHR, textStatus, errorThrown ) {
+				if ( 'abort' !== textStatus ) {
+					spinner.removeClass( 'show' );
+					self.outputMessage( messages.serverError, 'error show' );
+				}
 			};
 
 			self.hideList = function() {

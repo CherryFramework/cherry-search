@@ -73,13 +73,16 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 		 * @return void
 		 */
 		public function searchQuery() {
-
 			if ( empty( $_REQUEST['data'] ) ) {
 				return;
 			}
 
-			$data = esc_attr( $_REQUEST['data'] );
-			$this->search_query['s'] = urldecode( $data );
+			$data                           = esc_attr( $_REQUEST['data'] );
+			$limit_query                    = ( int ) $this->get_setting( 'limit_query' );
+
+			$this->search_query['s']        = urldecode( $data );
+			$this->search_query['nopaging'] = false;
+			$this->search_query['posts_per_page'] = $limit_query + 1;
 
 			$search = new WP_Query( $this->search_query );
 			$response = array(
@@ -104,7 +107,6 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 			$after             = '&hellip;';
 			$length            = ( int ) $this->get_setting( 'limit_content_word' );
-			$limit_query       = ( int ) $this->get_setting( 'limit_query' );
 			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN );
 			$title_visible     = filter_var( $this->get_setting( 'title_visible' ), FILTER_VALIDATE_BOOLEAN );
 			$author_visible    = filter_var( $this->get_setting( 'author_visible' ), FILTER_VALIDATE_BOOLEAN );
@@ -129,18 +131,19 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 					$content = '';
 				}
 
-				$response['posts'][ $key ]['content']   = $content;
-				$response['posts'][ $key ]['title']     = ( true === $title_visible ) ? $value->post_title : '' ;
-				$response['posts'][ $key ]['link']      = esc_url( get_post_permalink( $value->ID ) );
-				$response['posts'][ $key ]['thumbnail'] = ( true === $thumbnail_visible ) ? $this->get_post_thumbnail( $value->ID, $value->post_title ) : '' ;
-				$response['posts'][ $key ]['author']    = ( true === $author_visible ) ? sprintf( $author_html, $author_prefix, get_author_name( $value->post_author ) ) : '' ;
+				$response['posts'][ $key ] = array(
+					'content'   => $content,
+					'title'     => ( true === $title_visible ) ? $value->post_title : '' ,
+					'link'      => esc_url( get_post_permalink( $value->ID ) ),
+					'thumbnail' => ( true === $thumbnail_visible ) ? $this->get_post_thumbnail( $value->ID, $value->post_title ) : '',
+					'author'    => ( true === $author_visible ) ? sprintf( $author_html, $author_prefix, get_author_name( $value->post_author ) ) : '',
+				);
 
 				if ( $key >= $limit_query - 1 ) {
 					$response['posts']['more_button'] = $more_button;
 					break;
 				}
 			}
-
 			return $response;
 		}
 

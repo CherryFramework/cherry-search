@@ -221,13 +221,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 						'false_toggle' => esc_html__( 'No', 'cherry-search' ),
 					),
 				),
-				'search_button_text'      => array(
-					'type'        => 'text',
-					'parent'      => 'main',
-					'title'       => esc_html__( 'Search Button Text.', 'cherry-search' ),
-					'description' => esc_html__( 'This option sets search button text.', 'cherry-search' ),
-					'value'       => $this->get_setting( 'search_button_text', '' ),
-				),
 				'search_button_icon' => array(
 					'type'        => 'iconpicker',
 					'parent'      => 'main',
@@ -236,6 +229,13 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'value'       => $this->get_setting( 'search_button_icon', '' ),
 					'auto_parse'  => true,
 					'icon_data'   => apply_filters( 'cherry_search_button_icon', $this->get_icons_set() ),
+				),
+				'search_button_text'      => array(
+					'type'        => 'text',
+					'parent'      => 'main',
+					'title'       => esc_html__( 'Search Button Text.', 'cherry-search' ),
+					'description' => esc_html__( 'This option sets search button text.', 'cherry-search' ),
+					'value'       => $this->get_setting( 'search_button_text', '' ),
 				),
 				'search_placeholder_text' => array(
 					'type'        => 'text',
@@ -473,7 +473,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 * @return array
 		 */
 		private function get_search_source() {
-			$sources = get_post_types();
+			$sources = get_post_types( '', 'objects');
 			$exude = array( 'revision', 'nav_menu_item' );
 
 			if ( $sources ) {
@@ -481,7 +481,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					if ( in_array( $key, $exude ) ) {
 						unset( $sources[ $key ] );
 					} else {
-						$sources[ $key ] = ucfirst( $value );
+						$sources[ $value->name ] = ucfirst( $value->label );
 					}
 				}
 			}
