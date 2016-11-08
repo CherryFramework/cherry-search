@@ -133,7 +133,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 				$response['posts'][ $key ] = array(
 					'content'   => $content,
-					'title'     => ( true === $title_visible ) ? $value->post_title : '' ,
+					'title'     => ( true === $title_visible ) ? $value->post_title : '',
 					'link'      => esc_url( get_post_permalink( $value->ID ) ),
 					'thumbnail' => ( true === $thumbnail_visible ) ? $this->get_post_thumbnail( $value->ID, $value->post_title ) : '',
 					'author'    => ( true === $author_visible ) ? sprintf( $author_html, $author_prefix, get_author_name( $value->post_author ) ) : '',

@@ -202,7 +202,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 						esc_html__( 'In case you need to add Cherry Search on your website, you can do it in several ways:', 'cherry-search' ),
 						esc_html__( 'Enable a "Replace the standard search" option', 'cherry-search' ),
 						esc_html__( 'Add Cherry Search using this shortcode', 'cherry-search' ) . ' <code class ="cherry-code-example">' . htmlspecialchars( '[cherry_search_form]' ) . '</code>',
-						esc_html__( 'Add PHP code to the necessaryfiles of your theme:', 'cherry-search' ) . '<code class ="cherry-code-example">' . htmlspecialchars( '<?php cherry_get_search_form() ?>' ) . '</code>'
+						esc_html__( 'Add PHP code to the necessaryfiles of your theme:', 'cherry-search' ) . '<code class ="cherry-code-example">' . htmlspecialchars( 'if ( function_exists( \'cherry_get_search_form\' ) ) { cherry_get_search_form(); }' ) . '</code>'
 					),
 				),
 			);
@@ -473,7 +473,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 * @return array
 		 */
 		private function get_search_source() {
-			$sources = get_post_types( '', 'objects');
+			$sources = get_post_types( '', 'objects' );
 			$exude = array( 'revision', 'nav_menu_item' );
 
 			if ( $sources ) {
