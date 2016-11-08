@@ -90,8 +90,8 @@
 				}
 			};
 
-			self.errorCallback = function( jqXHR, textStatus, errorThrown ) {
-				if ( 'abort' !== textStatus ) {
+			self.errorCallback = function( jqXHR ) {
+				if ( 'abort' !== jqXHR.statusText ) {
 					spinner.removeClass( 'show' );
 					self.outputMessage( messages.serverError, 'error show' );
 				}
