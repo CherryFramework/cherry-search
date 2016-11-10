@@ -61,6 +61,7 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 					'action'       => 'cherry_search_public_action',
 					'is_public'    => true,
 					'callback'     => array( $this , 'searchQuery' ),
+					'type'         => 'GET',
 				)
 			);
 		}
@@ -73,11 +74,11 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 		 * @return void
 		 */
 		public function searchQuery() {
-			if ( empty( $_REQUEST['data'] ) ) {
+			if ( empty( $_GET['data'] ) ) {
 				return;
 			}
 
-			$data                           = esc_attr( $_REQUEST['data'] );
+			$data                           = esc_attr( $_GET['data'] );
 			$limit_query                    = ( int ) $this->get_setting( 'limit_query' );
 
 			$this->search_query['s']        = urldecode( $data );
