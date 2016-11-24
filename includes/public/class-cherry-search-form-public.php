@@ -94,7 +94,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 */
 		public function build_search_form( $search_form = null ) {
 			if ( null === $this->template_manager ) {
-				$this->template_manager = Cherry_Template_Manager::get_instance();
+				$this->template_manager = Cherry_Template_Manager::get_instance( cherry_search()->get_core() );
 			}
 
 			$this->messages['serverError'] = esc_html( $this->get_setting( 'server_error' ) );

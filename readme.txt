@@ -46,7 +46,8 @@ There are several ways to enable the plugin on your website. You can either:
 * Initial release
 
 == Arbitrary section ==
-=Plugin Settings =
+
+= Plugin Settings =
 Once the plugin is installed you can see a Cherry Search button in the right sidebar of your admin panel:
 
 = Main Settings =
