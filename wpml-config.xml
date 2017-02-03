@@ -1,0 +1,20 @@
+<wpml-config>
+	<admin-texts>
+		<key name="cherry-search-default">
+			<key name="search_button_text"/>
+			<key name="search_placeholder_text"/>
+			<key name="author_prefix"/>
+			<key name="more_button"/>
+			<key name="negative_search"/>
+			<key name="server_error"/>
+		</key>
+		<key name="cherry-search">
+			<key name="search_button_text"/>
+			<key name="search_placeholder_text"/>
+			<key name="author_prefix"/>
+			<key name="more_button"/>
+			<key name="negative_search"/>
+			<key name="server_error"/>
+		</key>
+	</admin-texts>
+</wpml-config>
