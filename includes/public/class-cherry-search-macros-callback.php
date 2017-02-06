@@ -59,7 +59,7 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			$this->template_manager = Cherry_Template_Manager::get_instance();
+			$this->template_manager = new Cherry_Template_Manager( cherry_search()->get_core() );
 			$this->set_variable();
 		}
 
