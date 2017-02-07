@@ -77,6 +77,8 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 			$this->variable['placeholder'] = esc_attr( $this->get_setting( 'search_placeholder_text' ) );
 			// Value macro $$READER_TEXT$$
 			$this->variable['reader_text'] = apply_filters( 'cherry_search_reader_text', esc_html__( 'Search for:', 'cherry-search' ) );
+			// Value macro $$READER_TEXT$$
+			$this->variable['reader_text']
 		}
 
 		/**

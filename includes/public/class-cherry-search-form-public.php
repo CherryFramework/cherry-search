@@ -68,6 +68,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 
 			if ( $change_standard_search ) {
 				add_filter( 'get_search_form', array( $this, 'build_search_form' ), 0 );
+				add_filter( 'get_product_search_form', array( $this, 'build_search_form' ), 11 );
 			}
 		}
 
@@ -105,6 +106,8 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 			add_action( 'get_footer', array( $this, 'set_css_style' ) );
 			add_action( 'wp_print_footer_scripts', array( $this, 'enqueue_scripts' ), 0 );
 			add_action( 'wp_print_footer_scripts', array( $this, 'print_js_template' ), 0 );
+
+			//$tmpl_name = ( 'get_product_search_form' === current_filter() ) ? 'wc-search-form' : 'search-form' ;
 
 			return $this->template_manager->parser->parsed_template( 'search-form', Cherry_Search_Macros_Callback::get_instance() );
 		}
