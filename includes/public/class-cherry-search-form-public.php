@@ -20,11 +20,37 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		/**
 		 * A reference to an instance of this class.
 		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 */
 		private static $instance = null;
+
+		/**
+		 * The number of search forms on the page.
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 * @var    number
+		 */
+		private static $count = 0;
+
+		/**
+		 * Templates for search list.
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 * @var    string
+		 */
+		private static $js_templates = '';
+
+		/**
+		 * Styles for the search form.
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 * @var    array
+		 */
+		private static $dinamic_css = array();
 
 		/**
 		 * Module сherry template мanager.
@@ -40,7 +66,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access private
-		 * @var    object
+		 * @var    array
 		 */
 		private $messages = array();
 
@@ -49,27 +75,29 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access private
-		 * @var    object
+		 * @var    string
 		 */
-		private $search_button_icon = false;
+		private $search_button_icon = '';
 
 		/**
 		 * Class constructor.
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.0
 		 * @access public
 		 * @return void
 		 */
 		public function __construct() {
 			add_action( 'pre_get_posts', array( $this, 'set_search_query' ) );
 
-			$change_standard_search   = filter_var( $this->get_setting( 'change_standard_search' ), FILTER_VALIDATE_BOOLEAN );
-			$this->search_button_icon = $this->get_setting( 'search_button_icon' );
+			$change_standard_search = filter_var( $this->get_setting( 'change_standard_search' ), FILTER_VALIDATE_BOOLEAN );
 
 			if ( $change_standard_search ) {
 				add_filter( 'get_search_form', array( $this, 'build_search_form' ), 0 );
 				add_filter( 'get_product_search_form', array( $this, 'build_search_form' ), 11 );
 			}
+
+			add_action( 'get_footer', array( $this, 'set_css_style' ) );
+			add_action( 'wp_print_footer_scripts', array( $this, 'print_js_template' ), 0 );
 		}
 
 		/**
@@ -80,8 +108,14 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @return void
 		 */
 		public function set_search_query( $query ) {
+
 			if ( ! is_admin() && $query->is_search ) {
-				$this->set_query_settings();
+				$form_settings = stripcslashes( $_GET['settings'] );
+				$form_settings = json_decode( $form_settings );
+				$form_settings = get_object_vars( $form_settings );
+
+				$this->set_query_settings( $form_settings );
+
 				$query->query_vars = array_merge( $query->query_vars, $this->search_query );
 			}
 		}
@@ -93,23 +127,52 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @access public
 		 * @return string
 		 */
-		public function build_search_form( $search_form = null ) {
+		public function build_search_form( $search_form = null, $args = array() ) {
+
 			if ( null === $this->template_manager ) {
 				$this->template_manager = new Cherry_Template_Manager( cherry_search()->get_core() );
 			}
 
-			$this->messages['serverError'] = esc_html( $this->get_setting( 'server_error' ) );
+			$this->get_settings();
+			$this->settings['id'] = ++self::$count;
+			$this->settings       = ! empty( $args ) ?  wp_parse_args( $args, $this->settings ) : $this->settings ;
+
+			$wrapper_html = apply_filters( 'cherry_search_shortcode_wrapper', '<div id="cherry-search-wrapper-%1$s" class="cherry-search-wrapper" data-args=\'' . json_encode( $this->settings ) . '\'>%2$s</div>' );
+			$form_html    = $this->template_manager->parser->parsed_template( 'search-form', new Cherry_Search_Macros_Callback( $this->settings ) );
+
+			$this->search_button_icon      = $this->settings['search_button_icon'];
+			$this->messages['serverError'] = esc_html( $this->settings['server_error'] );
+
+			$this->add_js_template( $this->settings );
+			$this->add_css_style( $this->settings );
 
 			// Load public-facing StyleSheets.
 			$this->enqueue_styles();
+			$this->enqueue_scripts();
 
-			add_action( 'get_footer', array( $this, 'set_css_style' ) );
-			add_action( 'wp_print_footer_scripts', array( $this, 'enqueue_scripts' ), 0 );
-			add_action( 'wp_print_footer_scripts', array( $this, 'print_js_template' ), 0 );
+			return sprintf( $wrapper_html, $this->settings['id'], $form_html );
+		}
+		/**
+		 * Generate search form style.
+		 *
+		 * @since 1.0.0
+		 * @access public
+		 * @return void
+		 */
+		public function add_css_style( $args = array() ) {
+			$enable_scroll = filter_var( $args['enable_scroll'], FILTER_VALIDATE_BOOLEAN );
+			if ( $enable_scroll ) {
+				$id         = $args['id'];
+				$max_height = $args['result_area_height'];
 
-			//$tmpl_name = ( 'get_product_search_form' === current_filter() ) ? 'wc-search-form' : 'search-form' ;
-
-			return $this->template_manager->parser->parsed_template( 'search-form', Cherry_Search_Macros_Callback::get_instance() );
+				self::$dinamic_css[ $id ] = array(
+					'selector' => '#cherry-search-wrapper-' . $id . ' .cherry-search__results-list',
+					'options'  => array(
+						'overflow-y' => 'auto',
+						'max-height' => $max_height . 'px',
+					),
+				);
+			}
 		}
 
 		/**
@@ -120,19 +183,11 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @return void
 		 */
 		public function set_css_style() {
-			$enable_scroll = filter_var( $this->get_setting( 'enable_scroll' ), FILTER_VALIDATE_BOOLEAN );
-
-			if ( $enable_scroll ) {
+			if ( ! empty( self::$dinamic_css ) ) {
 				$dynamic_css = cherry_search()->get_core()->init_module( 'cherry-dynamic-css', array() );
-				$max_height = $this->get_setting( 'result_area_height' );
-
-				$dynamic_css->add_style(
-					'.cherry-search__results-list',
-					array(
-						'overflow-y' => 'auto',
-						'max-height' => $max_height . 'px',
-					)
-				);
+				foreach ( self::$dinamic_css as $value ) {
+					$dynamic_css->add_style( $value['selector'], $value['options'] );
+				}
 			}
 		}
 
@@ -143,24 +198,31 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @access public
 		 * @return void
 		 */
-		public function print_js_template() {
-			$template_names = array(
-				'search-form-results-item'
-			);
+		public function add_js_template( $args = array() ) {
+			$name = 'search-form-results-item';
 			$output = '';
 
-			foreach ( $template_names as $name ) {
-				$content = trim( $this->template_manager->parser->parsed_template( $name, Cherry_Search_Macros_Callback::get_instance() ) );
-				$output .= sprintf(
-					'<script type="text/html" id="tmpl-%1$s">%2$s</script>',
-					$name,
-					$content
-				);
-			}
+			$content = trim( $this->template_manager->parser->parsed_template( $name, new Cherry_Search_Macros_Callback( $args ) ) );
+			$output .= sprintf(
+				'<script type="text/html" id="tmpl-%1$s-%2$s">%3$s</script>',
+				$name,
+				$args['id'],
+				$content
+			);
 
-			echo $output;
+			self::$js_templates .= $output;
 		}
 
+		/**
+		 * Get JS template to print.
+		 *
+		 * @since 1.0.0
+		 * @access public
+		 * @return void
+		 */
+		public function print_js_template() {
+			echo self::$js_templates;
+		}
 		/**
 		 * Enqueue public-facing stylesheets.
 		 *
@@ -228,8 +290,8 @@ if ( ! function_exists( 'cherry_get_search_form' ) ) {
 	 * @since  1.0.0
 	 * @return string
 	 */
-	function cherry_get_search_form( $echo = true ) {
-		$form = cherry_search_form_public()->build_search_form();
+	function cherry_get_search_form( $echo = true, $args = array() ) {
+		$form = cherry_search_form_public()->build_search_form( null, $args );
 		if ( $echo ) {
 			echo $form;
 		} else {

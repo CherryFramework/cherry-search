@@ -68,6 +68,9 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 
 			// Include plugin pages.
 			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/pages/class-cherry-search-settings-page.php' );
+
+			// Include plugin shortcode.
+			require_once( trailingslashit( CHERRY_SEARCH_DIR ) . 'includes/admin/class-cherry-search-register-shortcodes.php' );
 		}
 
 		/**

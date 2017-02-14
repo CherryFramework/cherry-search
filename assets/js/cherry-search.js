@@ -4,7 +4,7 @@
 	CherryJsCore.utilites.namespace( 'cherrySearch' );
 	CherryJsCore.cherrySearch = {
 		settings: {
-			searchFormWrapperClass: '.cherry-search',
+			searchFormWrapperClass: '.cherry-search-wrapper',
 			searchFormClass: '.cherry-search__form',
 			inputClass: '.cherry-search__field',
 			submitClass: '.cherry-search__submit',
@@ -34,10 +34,11 @@
 			settings      = args,
 			messages      = window.cherrySearchMessages,
 			timer         = null,
-			itemTemplate  = wp.template( 'search-form-results-item' ),
+			itemTemplate  = null,
 			resultsList   = $( settings.listClass, self ),
 			messageHolder = $( settings.messageHolder, resultsList ),
-			spinner       = $( settings.spinner, resultsList );
+			spinner       = $( settings.spinner, resultsList ),
+			data          = $( self ).data( 'args' ) || [];
 
 		if ( ! self.isInit ) {
 			self.isInit       = true;
@@ -54,7 +55,8 @@
 
 					clearTimeout( timer );
 					timer = setTimeout( function() {
-						self.searchAjaxInstancer.sendData( value );
+						data['value'] = value;
+						self.searchAjaxInstancer.sendData( data );
 					}, 450 );
 				} else {
 					self.hideList();
@@ -78,6 +80,7 @@
 							if ( 'more_button' === post ) {
 								outputHtml += posts[ post ];
 							} else {
+								itemTemplate = wp.template( 'search-form-results-item-' + data['id'] );
 								outputHtml += itemTemplate( posts[ post ] );
 							}
 						}
@@ -131,7 +134,8 @@
 
 			$( settings.inputClass, self )
 				.on( 'input', self.inputChangeHandler )
-				.on( 'focus', self.focusHandler );
+				.on( 'focus', self.focusHandler )
+				/*.on( 'blur', self.hideList )*/;
 
 			$( self )
 				.on( 'click' + settings.searchFormWrapperClass, self.formClick )

@@ -69,8 +69,8 @@ if ( ! class_exists( 'Cherry_Search_Shortcode' ) ) {
 		 * @access public
 		 * @return string
 		 */
-		public function do_shortcode( $atts, $content = null, $shortcode = '' ) {
-			return cherry_get_search_form( false );
+		public function do_shortcode( $args = array(), $content = null, $shortcode = '' ) {
+			return cherry_get_search_form( false, $args );
 		}
 		/**
 		 * Returns the instance.

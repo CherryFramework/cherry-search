@@ -83,36 +83,43 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 		 * @access private
 		 * @return void
 		 */
-		protected function set_query_settings() {
-			$search_source = $this->get_setting( 'search_source' );
+		protected function set_query_settings( $args = array() ) {
+			if ( $args ) {
+				$search_source = is_array( $args['search_source'] ) ? $args['search_source'] : explode( ',', $args['search_source'] ) ;
 
-			$this->search_query['cache_results']    = true;
-			$this->search_query['post_type']        = ! $search_source ? 'any' : $search_source ;
-			$this->search_query['order']            = $this->get_setting( 'results_order' );
-			$this->search_query['orderby']          = $this->get_setting( 'results_order_by' );
-			$this->search_query['tax_query']        = array(
-				array(
-					'relation' => 'AND',
-					array(
+				$this->search_query['cache_results']    = true;
+				$this->search_query['post_type']        = ! $search_source ? 'any' : $search_source ;
+				$this->search_query['order']            = $args['results_order'];
+				$this->search_query['orderby']          = $args['results_order_by'];
+				$this->search_query['tax_query']        = array( array( 'relation' => 'AND', ), );
+
+				if ( ! empty( $args['exclude_source_post_format'] ) ) {
+					$this->search_query['tax_query'][ 0 ][ 0 ] = array(
 						'taxonomy' => 'post_format',
 						'field'    => 'slug',
 						'operator' => 'NOT IN',
-						'terms'    => $this->get_setting( 'exclude_source_post_format' ),
-					),
-					array(
+						'terms'    => $args['exclude_source_post_format'],
+					);
+				}
+
+				if ( ! empty( $args['exclude_source_category'] ) ) {
+					$this->search_query['tax_query'][ 0 ][ 1 ] = array(
+						'taxonomy' => 'post_format',
+						'field'    => 'slug',
+						'operator' => 'NOT IN',
+						'terms'    => $args['exclude_source_category'],
+					);
+				}
+
+				if ( ! empty( $args['exclude_source_tags'] ) ) {
+					$this->search_query['tax_query'][ 0 ][ 2 ] = array(
 						'taxonomy' => 'category',
 						'field'    => 'slug',
 						'operator' => 'NOT IN',
-						'terms'    => $this->get_setting( 'exclude_source_category' ),
-					),
-					array(
-						'taxonomy' => 'post_tag',
-						'field'    => 'slug',
-						'operator' => 'NOT IN',
-						'terms'    => $this->get_setting( 'exclude_source_tags' ),
-					),
-				),
-			);
+						'terms'    => $args['exclude_source_tags'],
+					);
+				}
+			}
 		}
 	}
 }

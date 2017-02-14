@@ -42,7 +42,6 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			$this->set_query_settings();
 			$this->init_handlers();
 		}
 
@@ -78,12 +77,13 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 				return;
 			}
 
-			$data                           = esc_attr( $_GET['data'] );
-			$limit_query                    = ( int ) $this->get_setting( 'limit_query' );
+			$data                           = $_GET['data'];
+			$limit_query                    = ( int ) $data['limit_query'];
 
-			$this->search_query['s']        = urldecode( $data );
+			$this->search_query['s']        = urldecode( $data['value'] );
 			$this->search_query['nopaging'] = false;
 			$this->search_query['posts_per_page'] = $limit_query + 1;
+			$this->set_query_settings( $data );
 
 			$search = new WP_Query( $this->search_query );
 			$response = array(
@@ -95,28 +95,28 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 
 			if ( is_wp_error( $search ) ) {
 				$response['error']   = true;
-				$response['message'] = esc_html( $this->get_setting( 'server_error' ) );
+				$response['message'] = esc_html( $data['server_error'] );
 
 				return $response;
 			}
 
 			if ( empty( $search->post_count ) ) {
-				$response['message'] = esc_html( $this->get_setting( 'negative_search' ) );
+				$response['message'] = esc_html( $data['negative_search'] );
 
 				return $response;
 			}
 
 			$after             = '&hellip;';
-			$length            = ( int ) $this->get_setting( 'limit_content_word' );
-			$thumbnail_visible = filter_var( $this->get_setting( 'thumbnail_visible' ), FILTER_VALIDATE_BOOLEAN );
-			$title_visible     = filter_var( $this->get_setting( 'title_visible' ), FILTER_VALIDATE_BOOLEAN );
-			$author_visible    = filter_var( $this->get_setting( 'author_visible' ), FILTER_VALIDATE_BOOLEAN );
+			$length            = ( int ) $data['limit_content_word'];
+			$thumbnail_visible = filter_var( $data['thumbnail_visible'], FILTER_VALIDATE_BOOLEAN );
+			$title_visible     = filter_var( $data['title_visible'], FILTER_VALIDATE_BOOLEAN );
+			$author_visible    = filter_var( $data['author_visible'], FILTER_VALIDATE_BOOLEAN );
 
-			$author_prefix     = esc_html( $this->get_setting( 'author_prefix' ) );
+			$author_prefix     = esc_html( $data['author_prefix'] );
 			$author_html       = apply_filters( 'cherry_search_author_html', '<span>%1$s </span> <em>%2$s</em>' );
 
 			$more_button_html  = apply_filters( 'cherry_search_more_button_html', '<li class="cherry-search__more-button">%s</li>' );
-			$more_button_text  = esc_html( $this->get_setting( 'more_button' ) );
+			$more_button_text  = esc_html( $data['more_button'] );
 			$more_button       = sprintf( $more_button_html, $more_button_text );
 
 			$response['posts']      = array();
@@ -198,7 +198,6 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 			return self::$instance;
 		}
 	}
-
 }
 
 if ( ! function_exists( 'cherry_search_public_ajax_handlers' ) ) {

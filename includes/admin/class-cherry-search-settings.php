@@ -133,6 +133,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
+			cherry_search()->get_core()->init_module( 'cherry-utility', array() );
 			$this->utility = cherry_search()->get_core()->modules['cherry-utility']->utility;
 
 			$this->set_settings();
@@ -168,26 +169,31 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 
 			$this->tabs = array(
 				'main'            => array(
+					'type'   => 'settings',
 					'parent' => 'search_settings_tab',
 					'scroll' => true,
 					'title'  => esc_html__( 'Main settings', 'cherry-search' ),
 				),
 				'query_settings'  => array(
+					'type'   => 'settings',
 					'parent' => 'search_settings_tab',
 					'scroll' => true,
 					'title'  => esc_html__( 'Search results settings', 'cherry-search' ),
 				),
 				'visual_settings' => array(
+					'type'   => 'settings',
 					'parent' => 'search_settings_tab',
 					'scroll' => true,
 					'title'  => esc_html__( 'Visual settings', 'cherry-search' ),
 				),
 				'notices' => array(
+					'type'   => 'settings',
 					'parent' => 'search_settings_tab',
 					'scroll' => true,
 					'title'  => esc_html__( 'Notifications', 'cherry-search' ),
 				),
 				'submite_buttons' => array(
+					'type'   => 'settings',
 					'parent' => 'search_settings_section',
 				),
 			);
