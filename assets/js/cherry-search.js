@@ -55,7 +55,7 @@
 
 					clearTimeout( timer );
 					timer = setTimeout( function() {
-						data['value'] = value;
+						data.value = value;
 						self.searchAjaxInstancer.sendData( data );
 					}, 450 );
 				} else {
@@ -80,7 +80,7 @@
 							if ( 'more_button' === post ) {
 								outputHtml += posts[ post ];
 							} else {
-								itemTemplate = wp.template( 'search-form-results-item-' + data['id'] );
+								itemTemplate = wp.template( 'search-form-results-item-' + data.id );
 								outputHtml += itemTemplate( posts[ post ] );
 							}
 						}

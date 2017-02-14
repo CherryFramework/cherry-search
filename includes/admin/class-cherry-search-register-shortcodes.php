@@ -33,7 +33,6 @@ if ( ! class_exists( 'Cherry_Search_Register_Shortcodes' ) ) {
 		 * @access public
 		 * @return void
 		 */
-
 		public function __construct() {
 			parent::__construct();
 			cherry_search()->get_core()->init_module( 'cherry5-insert-shortcode', array() );
@@ -57,12 +56,11 @@ if ( ! class_exists( 'Cherry_Search_Register_Shortcodes' ) ) {
 				$this->settings['server_error']
 			);
 
-			foreach ( $this->tabs as $key => $value) {
+			foreach ( $this->tabs as $key => $value ) {
 				unset( $value['scroll'] );
 
 				$this->tabs[ $key ] = $value;
 			}
-
 
 			if ( function_exists( 'cherry5_register_shortcode' ) ) {
 				cherry5_register_shortcode(

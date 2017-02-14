@@ -85,16 +85,16 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 		 */
 		protected function set_query_settings( $args = array() ) {
 			if ( $args ) {
-				$search_source = is_array( $args['search_source'] ) ? $args['search_source'] : explode( ',', $args['search_source'] ) ;
+				$search_source = is_array( $args['search_source'] ) ? $args['search_source'] : explode( ',', $args['search_source'] );
 
 				$this->search_query['cache_results']    = true;
 				$this->search_query['post_type']        = ! $search_source ? 'any' : $search_source ;
 				$this->search_query['order']            = $args['results_order'];
 				$this->search_query['orderby']          = $args['results_order_by'];
-				$this->search_query['tax_query']        = array( array( 'relation' => 'AND', ), );
+				$this->search_query['tax_query']        = array( array( 'relation' => 'AND' ) );
 
 				if ( ! empty( $args['exclude_source_post_format'] ) ) {
-					$this->search_query['tax_query'][ 0 ][ 0 ] = array(
+					$this->search_query['tax_query'][0][0] = array(
 						'taxonomy' => 'post_format',
 						'field'    => 'slug',
 						'operator' => 'NOT IN',
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 				}
 
 				if ( ! empty( $args['exclude_source_category'] ) ) {
-					$this->search_query['tax_query'][ 0 ][ 1 ] = array(
+					$this->search_query['tax_query'][0][1] = array(
 						'taxonomy' => 'post_format',
 						'field'    => 'slug',
 						'operator' => 'NOT IN',
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Cherry_Search_Settings_Manager' ) ) {
 				}
 
 				if ( ! empty( $args['exclude_source_tags'] ) ) {
-					$this->search_query['tax_query'][ 0 ][ 2 ] = array(
+					$this->search_query['tax_query'][0][2] = array(
 						'taxonomy' => 'category',
 						'field'    => 'slug',
 						'operator' => 'NOT IN',
