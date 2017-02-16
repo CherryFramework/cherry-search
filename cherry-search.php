@@ -72,7 +72,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ), 2 );
 
 			// Load the include files.
-			add_action( 'after_setup_theme', array( $this, 'includes' ), 3 );
+			add_action( 'after_setup_theme', array( $this, 'includes' ), 11 );
 
 			// Register public assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 10 );

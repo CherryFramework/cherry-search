@@ -270,8 +270,8 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'description' => esc_html__( 'This option allows to set categories in which search will not be made.', 'cherry-search' ),
 					'multiple'    => true,
 					'filter'      => true,
-					'value'       => $this->get_setting( 'exclude_source_category', '' ),
-					'options'     => $this->utility->satellite->get_terms_array(),
+					'value'       => $this->get_setting( 'exclude_source_category', 'projects' ),
+					'options'     => $this->utility->satellite->get_terms_array( $this->get_categories() ),
 					'placeholder' => esc_html__( 'Not selected categories.', 'cherry-search' ),
 				),
 				'exclude_source_tags' => array(
@@ -282,7 +282,8 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'multiple'    => true,
 					'filter'      => true,
 					'value'       => $this->get_setting( 'exclude_source_tags', '' ),
-					'options'     => $this->utility->satellite->get_terms_array( 'post_tag' ),
+					'options'     => $this->utility->satellite->get_terms_array( $this->get_tags() ),
+					//'options'     => get_tags(),
 					'placeholder' => esc_html__( 'Not selected tags.', 'cherry-search' ),
 				),
 				'exclude_source_post_format' => array(
@@ -472,7 +473,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		}
 
 		/**
-		 * Get icons set.
+		 * Get search source.
 		 *
 		 * @since 1.0.0
 		 * @access private
@@ -480,18 +481,38 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		 */
 		private function get_search_source() {
 			$sources = get_post_types( '', 'objects' );
-			$exude = array( 'revision', 'nav_menu_item' );
-
+			$exude   = array( 'revision', 'nav_menu_item' );
+			$output  = array();
 			if ( $sources ) {
 				foreach ( $sources as $key => $value ) {
-					if ( in_array( $key, $exude ) ) {
-						unset( $sources[ $key ] );
-					} else {
-						$sources[ $value->name ] = ucfirst( $value->label );
+					if ( ! in_array( $key, $exude ) ) {
+						$output[ $value->name ] = ucfirst( $value->label );
 					}
 				}
 			}
-			return $sources;
+			return $output;
+		}
+
+		/**
+		 * .
+		 *
+		 * @since 1.0.0
+		 * @access private
+		 * @return array
+		 */
+		private function get_categories() {
+			return apply_filters( 'cherry_search_support_categories', array( 'category', 'projects_category', 'product_cat' ) );
+		}
+
+		/**
+		 * .
+		 *
+		 * @since 1.0.0
+		 * @access private
+		 * @return array
+		 */
+		private function get_tags() {
+			return apply_filters( 'cherry_search_support_tags', array( 'post_tag', 'projects_tag', 'product_tag' ) );
 		}
 
 		/**
