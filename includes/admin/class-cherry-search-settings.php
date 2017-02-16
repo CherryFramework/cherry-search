@@ -283,7 +283,6 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 					'filter'      => true,
 					'value'       => $this->get_setting( 'exclude_source_tags', '' ),
 					'options'     => $this->utility->satellite->get_terms_array( $this->get_tags() ),
-					//'options'     => get_tags(),
 					'placeholder' => esc_html__( 'Not selected tags.', 'cherry-search' ),
 				),
 				'exclude_source_post_format' => array(
