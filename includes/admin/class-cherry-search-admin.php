@@ -38,7 +38,7 @@ if ( ! class_exists( 'Cherry_Search_Admin' ) ) {
 			$this->init_modules();
 
 			// Include libraries from the `includes/admin`
-			add_action( 'init', array( $this, 'includes' ), 99 );
+			add_action( 'init', array( $this, 'includes' ), 9999 );
 
 			// Load the admin menu.
 			add_action( 'admin_menu', array( $this, 'menu' ) );
