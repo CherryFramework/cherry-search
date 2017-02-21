@@ -2,8 +2,8 @@
 Contributors: TemplateMonster 2002
 Tags: search, ajax search, quick search, fast search, ajax, cherry framework, widget search, shortcode search, custom search, cherry search
 Requires at least: 4.4
-Tested up to: 4.6.1
-Stable tag: 1.0.0
+Tested up to: 4.7.2
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,9 @@ The plugin is based on AJAX, which means that the results will be displayed dyna
 [Online documentation]( http://documentation.templatemonster.com/index.php?project=cherry_search "Cherry search documentation" )
 
 [Github Repository]( https://github.com/CherryFramework/cherry-search )
+
+[Plugin website]( http://www.cherryframework.com/plugins "Plugin website" )
+
 
 == Installation ==
 1. Upload cherry-testi folder to the /wp-content/plugins/ directory, or install the plugin through the WordPress plugins screen directly.
@@ -44,6 +47,26 @@ There are several ways to enable the plugin on your website. You can either:
 = 1.0.0 =
 
 * Initial release
+
+= 1.1.0 =
+
+**Added**
+
+* Compatibility with WooCommerce
+* Search field shortcode
+* Macro
+	- $$WRAPPER_CLASS$$
+	- $$FORM_CLASS$$
+	- $$INPUT_ID$$
+	- $$SETTINGS$$
+* Filters
+	- cherry_search_wrapper_class
+	- cherry_search_form_class
+	- cherry_search_input_id
+	- cherry_search_query_settings
+
+**Fixed**
+* WooCommerce issue in the product page.
 
 == Arbitrary section ==
 
@@ -138,6 +161,22 @@ Macro works with **cherry_search_reader_text** filter
 
 **$$PLACEHOLDER$$** - Returns *Main Settings -> Placeholder text option value*
 
+**$$WRAPPER_CLASS$$** - Returns search form wrapper class. Empty by default. If Woocommerce plugin is active the macro contains **wc-search-form** class.
+
+Macro works with **cherry_search_wrapper_class** filter
+
+**$$FORM_CLASS$$** - Macro returns search form class. Empty by default. If Woocommerce plugin is active the macro contains **woocommerce-product-search** class.
+
+Macro works with **cherry_search_form_class** filter
+
+**$$INPUT_ID$$** - Macro returns search form  field ID. Empty by default. If Woocommerce plugin is active the macro contains **id="woocommerce-product-search-field** class.
+
+Macro works with **cherry_search_input_id** filter
+
+**$$SETTINGS$$** - Macro returns search query settings for a particular search form.
+
+Macro works with **cherry_search_query_settings**
+
 
 = Filters =
 
@@ -210,3 +249,17 @@ Filter contains an array with the following values:
 * Type - *string*
 * By default: `<li class="cherry-search__more-button">%s</li>`
 
+**cherry_search_wrapper_class** - The filter allows to add or replace new class to the search form wrapper.
+* Type - *string*
+* By default: ` ` ( If WooCommerce is activated "wc-search-form" is used by default )
+
+**cherry_search_form_class** - The filter allows to add or replace new class to the search form.
+* Type - *string*
+* By default: ` ` ( If WooCommerce is activated "woocommerce-product-search" is used by default )
+
+**cherry_search_input_id** - The filter allows to change or add new ID to the search form input field.
+* Type - *string*
+* By default: ` ` ( If WooCommerce is activated "id="woocommerce-product-search-field" is used by default )
+
+**cherry_search_query_settings** - The filter allows to change search query settings.
+* Type - *string*

@@ -92,7 +92,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_SEARCH_VERSION', '1.0.0' );
+			define( 'CHERRY_SEARCH_VERSION', '1.1.0' );
 
 			/**
 			 * Set the slug of the plugin.
