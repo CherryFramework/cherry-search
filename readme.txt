@@ -41,7 +41,8 @@ There are several ways to enable the plugin on your website. You can either:
 1. Cherry search form in sidebar.
 2. Cherry search form on page.
 3. Plugin main settings.
-3. Plugin search results settings.
+4. Plugin search results settings.
+5. Search form shortcode.
 
 == Changelog ==
 = 1.0.0 =
