@@ -12,13 +12,14 @@ Found a bug? Feature requests? [Create an issue - Thanks!](https://github.com/Ch
 
 # Cherry Search #
 * Requires at least: 4.4
-* Tested up to: 4.6.1
+* Tested up to: 4.7.2
 
 # Description #
 With this plugin you will be able to add advanced search functionality to your WordPress website. It is multilingual, and is fully compatible with WooCommerce themes, so you can enhance your eCommerce website with a powerful conversion booster.
 The plugin is based on AJAX, which means that the results will be displayed dynamically. Your visitors will immediately see not only the titles of suitable search results, but also their image previews, author, date and other metadata.
 
 [Online documentation]( http://documentation.templatemonster.com/index.php?project=cherry_search "Cherry search documentation" )
+[Plugin website]( http://www.cherryframework.com/plugins "Plugin website" )
 
 # How to use? #
 There are several ways to enable the plugin on your website. You can either:
@@ -29,7 +30,7 @@ There are several ways to enable the plugin on your website. You can either:
 `<?php if ( function_exists( 'cherry_get_search_form' ) ) { cherry_get_search_form(); } ?>`
 
 # Changelog #
-## 1.0.0 ##
+## 1.1.0 ##
 * Initial release
 
 # Arbitrary section #
@@ -118,6 +119,18 @@ Macro works with **cherry_search_reader_text** filter
 
 **$$PLACEHOLDER$$** - Returns *Main Settings -> Placeholder text option value*
 
+**$$WRAPPER_CLASS$$** - Returns search form wrapper class. Empty by default. If Woocommerce plugin is active the macro contains **wc-search-form** class.
+Macro works with **cherry_search_wrapper_class** filter
+
+**$$FORM_CLASS$$** - Macro returns search form class. Empty by default. If Woocommerce plugin is active the macro contains **woocommerce-product-search** class.
+Macro works with **cherry_search_form_class** filter
+
+**$$INPUT_ID$$** - Macro returns search form  field ID. Empty by default. If Woocommerce plugin is active the macro contains **id="woocommerce-product-search-field** class.
+Macro works with **cherry_search_input_id** filter
+
+**$$SETTINGS$$** - Macro returns search query settings for a particular search form.
+Macro works with **cherry_search_query_settings**
+
 ### Filters ###
 
 **cherry_search_button_icon** - Allows to change the icons set, which you want to use buttons for search.
@@ -129,30 +142,24 @@ Filter contains an array with the following values:
 * Path to css file with icons
 * Css icon prefix css (if required)
 
-
 **cherry_search_limit_content_word** - Allows to change search elements word length  default value.
 * Type - *number*
 * By default: *50*
 
-
 **cherry_search_reader_text** - Allows to change Search for: text.
 * Type - *string*
-
 
 **cherry_search_icon_prefix** - Filter defines whether to add a prefix class to the icon font. For example in font-awesome - fa fa-search font
 * Type - *bool*
 * By default: *true*
 
-
 **cherry_search_icon** - Filter allows to change the HTML markup of the search button icon.
 * Type - *string*
 * By default: `<span class="cherry-search__icon %s"></span>`
 
-
 **cherry_search_submite_text** - Filter allows to change the HTML markup of the search button text.
 * Type - *string*
 * By default: `<span class="cherry-search__submite_text">%s</span>`
-
 
 **cherry_search_spinner_holder** - Filter allows to change the loader wrapper  HTML markup.
 * Type - *string*
@@ -162,18 +169,29 @@ Filter contains an array with the following values:
 * Type - *string*
 * By default: `<div class="cherry-search__spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>`
 
-
 **cherry_search_thumbnail_html** - Filter allows to change post thumbnail HTML wrapper markup.
 * Type - *string*
 * By default: `<span class="cherry-search__item-thumbnail">%s</span>`
-
 
 **cherry_search_author_html** - Filter allows to change Filter allows to change post author name  HTML wrapper markup.
 * Type - *string*
 * By default: `<span>%1$s </span> <em>%2$s</em>`
 
-
 **cherry_search_more_button_html** - Filter allows to change the more-button HTML markdown. Button text is set in the option Visual settings -> "Show more" button text.
 * Type - *string*
 * By default: `<li class="cherry-search__more-button">%s</li>`
 
+**cherry_search_wrapper_class** - The filter allows to add or replace new class to the search form wrapper.
+* Type - *string*
+* By default: `` ( If WooCommerce is activated "wc-search-form" is used by default )
+
+**cherry_search_form_class** - The filter allows to add or replace new class to the search form.
+* Type - *string*
+* By default: `` ( If WooCommerce is activated "woocommerce-product-search" is used by default )
+
+**cherry_search_input_id** - The filter allows to change or add new ID to the search form input field.
+* Type - *string*
+* By default: `` ( If WooCommerce is activated "id="woocommerce-product-search-field" is used by default )
+
+**cherry_search_query_settings** - The filter allows to change search query settings.
+* Type - *string*
