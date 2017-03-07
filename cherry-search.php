@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Search
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A plugin for WordPress.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      Cherry Team
  * Text Domain: cherry-search
  * License:     GPL-3.0+
@@ -12,7 +12,7 @@
  *
  * @package Cherry_Search
  * @author  Cherry Team
- * @version 1.1.0
+ * @version 1.1.1
  * @license GPL-3.0+
  * @copyright  2012-2016, Cherry Team
  */
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_SEARCH_VERSION', '1.1.0' );
+			define( 'CHERRY_SEARCH_VERSION', '1.1.1' );
 
 			/**
 			 * Set the slug of the plugin.

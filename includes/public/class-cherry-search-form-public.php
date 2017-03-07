@@ -108,7 +108,7 @@ if ( ! class_exists( 'Cherry_Search_Form_Public' ) ) {
 		 * @return void
 		 */
 		public function set_search_query( $query ) {
-			if ( ! is_admin() && $query->is_search && ! empty( $_GET['settings'] )  ) {
+			if ( ! is_admin() && $query->is_search && ! empty( $_GET['settings'] ) ) {
 				$form_settings = stripcslashes( $_GET['settings'] );
 				$form_settings = json_decode( $form_settings );
 				$form_settings = get_object_vars( $form_settings );
