@@ -51,7 +51,7 @@ There are several ways to enable the plugin on your website. You can either:
 
 = 1.1.0 =
 
-**Added**
+**Added :**
 
 * Compatibility with WooCommerce
 * Search field shortcode
@@ -66,7 +66,8 @@ There are several ways to enable the plugin on your website. You can either:
 	- cherry_search_input_id
 	- cherry_search_query_settings
 
-**Fixed**
+**Fixed :**
+
 * WooCommerce issue in the product page.
 
 == Arbitrary section ==
@@ -251,16 +252,20 @@ Filter contains an array with the following values:
 * By default: `<li class="cherry-search__more-button">%s</li>`
 
 **cherry_search_wrapper_class** - The filter allows to add or replace new class to the search form wrapper.
+
 * Type - *string*
 * By default: ` ` ( If WooCommerce is activated "wc-search-form" is used by default )
 
 **cherry_search_form_class** - The filter allows to add or replace new class to the search form.
+
 * Type - *string*
 * By default: ` ` ( If WooCommerce is activated "woocommerce-product-search" is used by default )
 
 **cherry_search_input_id** - The filter allows to change or add new ID to the search form input field.
+
 * Type - *string*
 * By default: ` ` ( If WooCommerce is activated "id="woocommerce-product-search-field" is used by default )
 
 **cherry_search_query_settings** - The filter allows to change search query settings.
+
 * Type - *string*
