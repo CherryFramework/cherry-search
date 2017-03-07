@@ -70,7 +70,7 @@ There are several ways to enable the plugin on your website. You can either:
 
 * WooCommerce issue in the product page.
 
-= 1.0.0 =
+= 1.1.1 =
 
 **Fixed :**
 
