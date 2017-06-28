@@ -168,9 +168,9 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 					'cherry-handler'           => array(
 						'autoload' => false,
 					),
-					'cherry-template-manager' => array(
+					/*'cherry-template-manager' => array(
 						'autoload' => false,
-					),
+					),*/
 					'cherry-dynamic-css' => array(
 						'autoload' => false,
 					),
@@ -192,6 +192,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 		 */
 		public function includes() {
 
+			require_once( CHERRY_SEARCH_DIR . 'includes/public/cherry-template-manager/cherry-template-manager.php' );
 			require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-settings-manager.php' );
 			require_once( CHERRY_SEARCH_DIR . 'includes/public/class-cherry-search-public-ajax-handlers.php' );
 
