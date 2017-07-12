@@ -3,7 +3,7 @@ Contributors: TemplateMonster 2002
 Tags: search, ajax search, quick search, fast search, ajax, cherry framework, widget search, shortcode search, custom search, cherry search
 Requires at least: 4.4
 Tested up to: 4.7.2
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,6 +77,10 @@ There are several ways to enable the plugin on your website. You can either:
 * Fixed php error on search page.
 
 = 1.1.2 =
+
+* Fixed bugs.
+
+= 1.1.3 =
 
 * Fixed bugs.
 
