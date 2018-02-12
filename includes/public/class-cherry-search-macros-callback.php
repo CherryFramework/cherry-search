@@ -55,6 +55,13 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		private $template_manager = null;
 
 		/**
+		 * Iterator fo product search forms IDs
+		 *
+		 * @var integer
+		 */
+		private static $index = 0;
+
+		/**
 		 * Class constructor.
 		 *
 		 * @since 1.0.0
@@ -237,8 +244,14 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 		 * @return string
 		 */
 		public function get_input_id() {
-			$output = ( 'get_product_search_form' === current_filter() ) ? 'id="woocommerce-product-search-field"' : '' ;
-			return $output;
+
+			if ( 'get_product_search_form' !== current_filter() ) {
+				return '';
+			}
+
+			self::$index++;
+			$id = 'woocommerce-product-search-field-' . self::$index;
+			return 'id="' . $id . '"';
 		}
 
 		/**

@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Search
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A plugin for WordPress.
- * Version:     1.1.4
+ * Version:     1.1.4.1
  * Author:      Jetimpex
  * Author URI:  https://jetimpex.com/wordpress/
  * Text Domain: cherry-search
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_SEARCH_VERSION', '1.1.4' );
+			define( 'CHERRY_SEARCH_VERSION', '1.1.4.1' );
 
 			/**
 			 * Set the slug of the plugin.
