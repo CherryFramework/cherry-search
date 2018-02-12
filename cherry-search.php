@@ -1,21 +1,15 @@
 <?php
 /**
  * Plugin Name: Cherry Search
- * Plugin URI:  http://www.cherryframework.com/
+ * Plugin URI:  https://zemez.io/wordpress/
  * Description: A plugin for WordPress.
  * Version:     1.1.4.1
- * Author:      Jetimpex
- * Author URI:  https://jetimpex.com/wordpress/
+ * Author:      Zemez
+ * Author URI:  https://zemez.io/wordpress/
  * Text Domain: cherry-search
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
- *
- * @package Cherry_Search
- * @author  Cherry Team
- * @version 1.1.4
- * @license GPL-3.0+
- * @copyright  2012-2016, Cherry Team
  */
 
 // If this file is called directly, abort.
