@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Search
  * Plugin URI:  https://zemez.io/wordpress/
  * Description: A plugin for WordPress.
- * Version:     1.1.4.1
+ * Version:     1.1.5
  * Author:      Zemez
  * Author URI:  https://zemez.io/wordpress/
  * Text Domain: cherry-search
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Cherry_Search' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_SEARCH_VERSION', '1.1.4.1' );
+			define( 'CHERRY_SEARCH_VERSION', '1.1.5' );
 
 			/**
 			 * Set the slug of the plugin.

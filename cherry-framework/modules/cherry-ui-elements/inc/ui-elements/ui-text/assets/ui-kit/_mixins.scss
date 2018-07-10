@@ -1,0 +1,16 @@
+@mixin input() {
+	font-size: 12px;
+	line-height: 16px;
+	color: $dark_color;
+	background-color: $bg_color;
+	border-radius: $border_radius_extra_small;
+	padding: 5px;
+	min-height: 28px;
+	border: 1px solid $border_color;
+	box-shadow: none;
+
+	&:focus{
+		border-color: darken( $border_color, 20% );
+		box-shadow: none;
+	}
+}

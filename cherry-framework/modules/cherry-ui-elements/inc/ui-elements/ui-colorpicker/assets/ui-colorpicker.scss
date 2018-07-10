@@ -1,0 +1,68 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+@import "../../../../assets/sass/lock";
+
+$font_size: 14px;
+
+.cherry-ui-elements-lock {
+	opacity: 0.5;
+	cursor: no-drop;
+	pointer-events: none;
+	filter: grayscale( 100% );
+}
+
+.cherry-ui-container {
+	margin: 10px 0 20px 0;
+}
+
+label.cherry-label {
+	margin: 0 0 5px 0;
+	display: block;
+}
+
+.cherry-ui-colorpicker-wrapper {
+
+	.wp-picker-container {
+		padding: 3px;
+		border-radius: 3px;
+
+		.wp-color-result-text {
+			line-height: 18px;
+			text-align: right;
+		}
+
+		.wp-color-result {
+			width: 105px;
+			height: 26px;
+			padding: 0;
+			border: none;
+			margin: 0;
+			box-shadow: inset 0 0 0 3px white;
+			border: 1px solid #d5dadf;
+
+			&:focus {
+				border: 1px solid #9ba7b3;
+				outline: none;
+			}
+
+			&:after {
+				display: none;
+			}
+		}
+
+		.wp-picker-input-wrap {
+			margin: 1px 0;
+		}
+
+		&.wp-picker-active {
+			.wp-color-result {
+				margin-right: 6px;
+			}
+		}
+
+		.iris-picker {
+			position: absolute;
+			z-index: 999;
+		}
+	}
+}

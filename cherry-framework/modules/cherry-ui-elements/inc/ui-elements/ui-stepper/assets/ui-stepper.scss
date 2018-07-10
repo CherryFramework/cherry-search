@@ -1,0 +1,30 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+@import "../../../../assets/sass/lock";
+
+.cherry-ui-elements-lock{
+	opacity: 0.5;
+	cursor: no-drop;
+	pointer-events: none;
+	filter: grayscale( 100% );
+}
+.cherry-ui-container{
+	margin: 10px 0 20px 0;
+}
+label.cherry-label{
+	margin: 0 0 5px 0;
+	display: block;
+}
+.cherry-ui-stepper{
+	position: relative;
+	max-width: 100px;
+	input[type=number]{
+		@include input();
+	}
+
+}
+.cherry-ui-stepper-input{
+	min-width: 70px;
+	max-width: 70px;
+	text-align: left;
+}

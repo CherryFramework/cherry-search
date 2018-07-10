@@ -86,7 +86,9 @@ if ( ! class_exists( 'Cherry_Search_Macros_Callback' ) ) {
 			// Value macro $$ACTION$$
 			$this->variable['action']        = get_home_url();
 			// Value macro $$PLACEHOLDER$$
-			$this->variable['placeholder']   = $this->args['search_placeholder_text'];
+			$serch_text = apply_filters( 'cherry_search_placeholder_text', esc_html__( 'Search', 'cherry-search' ) );
+
+			$this->variable['placeholder']   = ! empty( $this->args['search_placeholder_text'] ) ? $this->args['search_placeholder_text'] ? $serch_text;
 			// Value macro $$READER_TEXT$$
 			$this->variable['reader_text']   = apply_filters( 'cherry_search_reader_text', esc_html__( 'Search for:', 'cherry-search' ) );
 			// Value macro $$WRAPPER_CLASS$$
