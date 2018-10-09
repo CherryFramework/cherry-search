@@ -555,6 +555,7 @@ if ( ! class_exists( 'Cherry_Search_Settings' ) ) {
 		public function set_default_settings() {
 			$settings_default    = $this->settings_default;
 			$db_settings_default = get_option( CHERRY_SEARCH_SLUG . '-default', array() );
+			$db_settings_default = is_array( $db_settings_default ) ? $db_settings_default : array();
 
 			$result_array = array_diff_key( $settings_default, $db_settings_default );
 			$reverse_result_array = array_diff_key( $db_settings_default, $settings_default );
