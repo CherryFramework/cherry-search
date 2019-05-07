@@ -2,8 +2,8 @@
 Contributors: TemplateMonster 2002
 Tags: search, ajax search, quick search, fast search, ajax, cherry framework, widget search, shortcode search, custom search, cherry search
 Requires at least: 4.4
-Tested up to: 4.9.4
-Stable tag: 1.1.4.1
+Tested up to: 5.1.0
+Stable tag: 1.1.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,6 +87,11 @@ There are several ways to enable the plugin on your website. You can either:
 = 1.1.4 =
 
 * Fixed bugs.
+
+= 1.1.5 =
+
+* Fixed bugs.
+* Update Cherry Framework.
 
 == Arbitrary section ==
 
