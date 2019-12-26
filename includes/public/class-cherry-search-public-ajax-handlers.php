@@ -84,6 +84,8 @@ if ( ! class_exists( 'Cherry_Search_Public_Ajax_Handlers' ) ) {
 			$this->search_query['nopaging'] = false;
 			$this->search_query['posts_per_page'] = $limit_query + 1;
 			$this->set_query_settings( $data );
+			
+			$this->search_query = apply_filters('cherry_search_query_args', $this->search_query);
 
 			$search = new WP_Query( $this->search_query );
 			$response = array(
